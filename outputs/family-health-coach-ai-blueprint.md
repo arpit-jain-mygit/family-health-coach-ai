@@ -828,6 +828,15 @@ HIPAA-inspired practices:
 
 ## 13. Testing Strategy
 
+### Test-First Module Rule
+
+- Before starting any module, define or update that module's test cases in the module-wise development plan.
+- During implementation, keep work scoped to the active module.
+- After implementation, run the documented module test cases.
+- A module can be marked `Certified` only after its respective tests pass.
+- After certification, update `module-wise-development-plan.md`, `project-status.md`, and this blueprint if architecture/API/data behavior changed.
+- Commit and push every certified module update.
+
 ### Unit Tests
 
 - LLM provider factory

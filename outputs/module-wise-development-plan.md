@@ -28,35 +28,81 @@ Status legend:
 - `Planned`: Defined in docs, not started in code.
 - `In Progress`: Implementation started.
 - `Blocked`: Waiting on a decision, dependency, or access.
-- `Done`: Implemented, tested, documented, committed, and pushed.
+- `Certified`: Test cases written, implementation completed, respective tests passed, docs updated, committed, and pushed.
 
 Current status as of 2026-06-06:
 
-| Module | Phase | Status | Current Notes |
-|---|---|---|---|
-| 1. Foundation | Phase 1 | Planned | Angular + Bootstrap frontend and FastAPI backend are selected. |
-| 2. Authentication | Phase 1 | Planned | Google OAuth only, with FastAPI JWT session tokens. |
-| 3. Family Management | Phase 1 | Planned | Family is the tenant boundary. |
-| 4. Member Management | Phase 1 | Planned | Supports profile, health info, goals, and preferences. |
-| 5. AI Provider Layer | Phase 1 | Planned | Provider abstraction covers OpenAI, Gemini, and Anthropic. |
-| 6. Memory System | Phase 1/2 | Planned | Basic memory first, `pgvector` RAG later. |
-| 7. Chat | Phase 1 | Planned | WhatsApp-style Angular UI with persisted conversation history. |
-| 8. Food Logging | Phase 2 | Planned | Manual and natural-language logging first. |
-| 9. Meal Planning | Phase 2 | Planned | Personalized vegetarian/Jain/vegan meal plans. |
-| 10. Daily Dashboard | Phase 2 | Planned | Daily calories, protein, water, exercise, steps, trends, and scores. |
-| 11. Progress Tracking | Phase 2 | Planned | Health marker trends and goal progress. |
-| 12. Reports and PDF Generation | Phase 3 | Planned | Daily, weekly, monthly, family reports, and PDFs. |
-| 13. Family Leaderboard | Phase 3 | Planned | Adherence, improvement, activity, and consistency rankings. |
-| 14. Reminders | Phase 3/4 | Planned | Meal, water, walking, and medication reminders. |
-| 15. Photo and Voice Logging | Phase 4 | Planned | Photo upload, voice input, transcription, and multimodal meal review. |
-| 16. Security, Audit, and Compliance | Cross-cutting | Planned | Tenant dependencies, audit logs, rate limits, and privacy controls. |
-| 17. Testing and CI/CD | Cross-cutting | Planned | Angular tests, pytest, Alembic checks, E2E, and GitHub Actions. |
+| Module | Phase | Status | Certification | Current Notes |
+|---|---|---|---|---|
+| 1. Foundation | Phase 1 | Planned | Not certified | Angular + Bootstrap frontend and FastAPI backend are selected. |
+| 2. Authentication | Phase 1 | Planned | Not certified | Google OAuth only, with FastAPI JWT session tokens. |
+| 3. Family Management | Phase 1 | Planned | Not certified | Family is the tenant boundary. |
+| 4. Member Management | Phase 1 | Planned | Not certified | Supports profile, health info, goals, and preferences. |
+| 5. AI Provider Layer | Phase 1 | Planned | Not certified | Provider abstraction covers OpenAI, Gemini, and Anthropic. |
+| 6. Memory System | Phase 1/2 | Planned | Not certified | Basic memory first, `pgvector` RAG later. |
+| 7. Chat | Phase 1 | Planned | Not certified | WhatsApp-style Angular UI with persisted conversation history. |
+| 8. Food Logging | Phase 2 | Planned | Not certified | Manual and natural-language logging first. |
+| 9. Meal Planning | Phase 2 | Planned | Not certified | Personalized vegetarian/Jain/vegan meal plans. |
+| 10. Daily Dashboard | Phase 2 | Planned | Not certified | Daily calories, protein, water, exercise, steps, trends, and scores. |
+| 11. Progress Tracking | Phase 2 | Planned | Not certified | Health marker trends and goal progress. |
+| 12. Reports and PDF Generation | Phase 3 | Planned | Not certified | Daily, weekly, monthly, family reports, and PDFs. |
+| 13. Family Leaderboard | Phase 3 | Planned | Not certified | Adherence, improvement, activity, and consistency rankings. |
+| 14. Reminders | Phase 3/4 | Planned | Not certified | Meal, water, walking, and medication reminders. |
+| 15. Photo and Voice Logging | Phase 4 | Planned | Not certified | Photo upload, voice input, transcription, and multimodal meal review. |
+| 16. Security, Audit, and Compliance | Cross-cutting | Planned | Not certified | Tenant dependencies, audit logs, rate limits, and privacy controls. |
+| 17. Testing and CI/CD | Cross-cutting | Planned | Not certified | Angular tests, pytest, Alembic checks, E2E, and GitHub Actions. |
+
+## Module Execution Workflow
+
+For every module:
+
+1. Before implementation starts, add or update that module's test cases in the `Tests` section.
+2. Mark the module `In Progress` in this file and `project-status.md`.
+3. Implement only the scoped module work.
+4. Run the respective module tests.
+5. Fix issues until the module test set passes.
+6. Update the module status to `Certified`.
+7. Add a certification entry with the test command, result, date, and commit SHA.
+8. Update all affected docs in the same commit.
+9. Commit and push to GitHub.
+
+Certification requires:
+
+- Test cases were defined before implementation.
+- Required module tests passed locally.
+- Relevant docs and status tables were updated.
+- Code and docs were committed.
+- Commit was pushed to GitHub.
+
+## Certification Log
+
+| Module | Status | Test Command | Result | Certified On | Commit |
+|---|---|---|---|---|---|
+| 1. Foundation | Not certified | TBD before module start | Not run | - | - |
+| 2. Authentication | Not certified | TBD before module start | Not run | - | - |
+| 3. Family Management | Not certified | TBD before module start | Not run | - | - |
+| 4. Member Management | Not certified | TBD before module start | Not run | - | - |
+| 5. AI Provider Layer | Not certified | TBD before module start | Not run | - | - |
+| 6. Memory System | Not certified | TBD before module start | Not run | - | - |
+| 7. Chat | Not certified | TBD before module start | Not run | - | - |
+| 8. Food Logging | Not certified | TBD before module start | Not run | - | - |
+| 9. Meal Planning | Not certified | TBD before module start | Not run | - | - |
+| 10. Daily Dashboard | Not certified | TBD before module start | Not run | - | - |
+| 11. Progress Tracking | Not certified | TBD before module start | Not run | - | - |
+| 12. Reports and PDF Generation | Not certified | TBD before module start | Not run | - | - |
+| 13. Family Leaderboard | Not certified | TBD before module start | Not run | - | - |
+| 14. Reminders | Not certified | TBD before module start | Not run | - | - |
+| 15. Photo and Voice Logging | Not certified | TBD before module start | Not run | - | - |
+| 16. Security, Audit, and Compliance | Not certified | TBD before module start | Not run | - | - |
+| 17. Testing and CI/CD | Not certified | TBD before module start | Not run | - | - |
 
 ## Documentation Sync Rules
 
 - Keep this module status table, `project-status.md`, and the architecture blueprint aligned after every scope or stack change.
 - When a module status changes, update both the tracker in this file and the project status document.
 - When APIs, data tables, auth, AI providers, or stack choices change, update the architecture blueprint in the same commit.
+- Before starting any module, confirm that module's test cases are documented.
+- After finishing any module, run the documented tests and update the certification log.
 - Every documentation update should be committed and pushed after verification.
 
 ## UI Implementation Standard
