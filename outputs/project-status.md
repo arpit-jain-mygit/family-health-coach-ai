@@ -26,7 +26,7 @@ Last updated: 2026-06-06
 |---|---|---|
 | Product blueprint | Done | Architecture, data model, API contracts, UI wireframes, and implementation phases are documented. |
 | Module-wise plan | Done | Modules, tasks, dependencies, tests, and status tracker are documented. |
-| Code implementation | In Progress | Module 1 Foundation scaffold is being implemented locally first. |
+| Code implementation | In Progress | Module 1 Foundation is certified; Module 2 Authentication is next. |
 | GitHub sync | Done | Repository is connected and pushed to GitHub. |
 | Deployment | Deferred | Develop locally now; migrate to Vercel/Render or similar after the MVP is stable. |
 
@@ -34,7 +34,7 @@ Last updated: 2026-06-06
 
 | Module | Phase | Status | Certification | Current Notes |
 |---|---|---|---|---|
-| 1. Foundation | Phase 1 | In Progress | Not certified | Test cases defined; foundation scaffold implementation started. |
+| 1. Foundation | Phase 1 | Certified | Certified | Foundation scaffold implemented; `python3 tests/foundation/test_foundation_scaffold.py` passed. |
 | 2. Authentication | Phase 1 | Planned | Not certified | Google OAuth only, with FastAPI JWT session tokens. |
 | 3. Family Management | Phase 1 | Planned | Not certified | Family is the tenant boundary. |
 | 4. Member Management | Phase 1 | Planned | Not certified | Supports profile, health info, goals, and preferences. |
@@ -69,12 +69,11 @@ After implementing a module:
 
 ## Next Recommended Work
 
-1. Scaffold the monorepo.
-2. Create the Angular app with Bootstrap and PWA support.
-3. Create the FastAPI app with health check, config, logging, Pydantic schemas, SQLAlchemy/SQLModel, and Alembic.
-4. Add local Docker Compose setup for PostgreSQL, Redis, and optional local S3-compatible storage.
-5. Add local `.env` templates for web and API.
-6. Implement Google OAuth and JWT session handling locally.
+1. Define Module 2 Authentication test cases before implementation.
+2. Implement Google OAuth and JWT session handling locally.
+3. Add FastAPI auth routes and Angular auth callback handling.
+4. Run Module 2 authentication tests.
+5. Update module status and certification log after tests pass.
 
 ## Sync Checklist
 
