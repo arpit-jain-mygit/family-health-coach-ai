@@ -30,7 +30,7 @@ Last updated: 2026-06-06
 | GitHub sync | Done | Repository is connected and pushed to GitHub. |
 | Deployment | Deferred | Develop locally now; migrate to Vercel/Render or similar after the MVP is stable. |
 | Local UI Preview | Available | Open `outputs/ui-preview/index.html` directly in a browser to inspect the current scaffold screens without installing Angular dependencies. |
-| Local API Server | Available | Run `cd apps/api && ../../.venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload`; `/api/v1/health` and `/api/v1/auth/google` are verified. Google OAuth forces account selection with `prompt=select_account consent`. |
+| Local API Server | Available | Run `cd apps/api && ../../.venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload`; `/api/v1/health` and `/api/v1/auth/google` are verified. Google OAuth requires `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`; when configured it forces account selection with `prompt=select_account consent`. |
 
 ## Module Status
 

@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from fastapi.responses import RedirectResponse
 
 from app.api.deps import CurrentUserId
+from app.core.config import get_settings
 from app.schemas.auth import CurrentUserResponse, LogoutResponse, TokenResponse
 from app.services.auth_service import AuthService
 
@@ -16,6 +17,18 @@ def get_auth_service() -> AuthService:
 def start_google_login(
     auth_service: AuthService = Depends(get_auth_service),
 ) -> RedirectResponse:
+    settings = get_settings()
+    if not settings.google_client_id.strip() or not settings.google_client_secret.strip():
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=(
+                "Google OAuth is not configured locally. Set GOOGLE_CLIENT_ID "
+                "and GOOGLE_CLIENT_SECRET in apps/api/.env, then restart FastAPI. "
+                "Authorized redirect URI: "
+                "http://localhost:8000/api/v1/auth/google/callback"
+            ),
+        )
+
     return RedirectResponse(auth_service.google_authorization_url())
 
 

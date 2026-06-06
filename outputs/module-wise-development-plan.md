@@ -326,14 +326,17 @@ curl -i http://127.0.0.1:8000/api/v1/auth/google
 Expected API results:
 
 - `/api/v1/health` returns `{"status":"ok"}`.
-- `/api/v1/auth/google` returns `307 Temporary Redirect` to Google OAuth.
+- `/api/v1/auth/google` returns `503 Service Unavailable` with a local setup message when `GOOGLE_CLIENT_ID` or `GOOGLE_CLIENT_SECRET` is missing.
+- After Google OAuth credentials are configured, `/api/v1/auth/google` returns `307 Temporary Redirect` to Google OAuth.
 - The Google OAuth redirect includes `prompt=select_account consent`, so Google shows the account chooser instead of silently using the already signed-in account.
 
 If Google shows `Access blocked: Authorization Error`:
 
-- Set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in the API environment.
+- Copy `apps/api/.env.example` to `apps/api/.env`.
+- Set real values for `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in `apps/api/.env`.
 - Add this exact authorized redirect URI in Google Cloud: `http://localhost:8000/api/v1/auth/google/callback`.
 - While the OAuth app is in testing mode, add your Google email under OAuth consent screen test users.
+- Restart FastAPI after changing `.env`.
 
 If the test fails:
 
