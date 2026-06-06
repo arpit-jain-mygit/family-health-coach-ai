@@ -68,6 +68,18 @@ Can:
 - Observability: OpenTelemetry, structured logs, audit logs
 - CI/CD: GitHub Actions
 
+### Environment Strategy
+
+Current priority: local-first development.
+
+- Build and run the full MVP locally before optimizing for hosted deployment.
+- Use local Angular dev server for the web app.
+- Use local FastAPI/Uvicorn for the API.
+- Use local PostgreSQL, Redis, and S3-compatible storage through Docker Compose where possible.
+- Keep environment variables in local `.env` files that are not committed.
+- Keep deployment configuration lightweight until core modules are working.
+- Later migration target: Angular web app on Vercel or similar static hosting, FastAPI API on Render or similar Python hosting, managed PostgreSQL, managed Redis, and S3-compatible object storage.
+
 ### UI Stack Details
 
 - Framework: Angular with TypeScript
@@ -885,12 +897,24 @@ jobs:
 
 Deployment:
 
-- Web: AWS Amplify, Netlify, Firebase Hosting, or static hosting behind a CDN
-- API: AWS ECS/Fargate, Render, Fly.io, or Railway initially
-- DB: managed PostgreSQL
-- Redis: managed Redis
-- S3: AWS S3
-- Secrets: platform secret manager
+Current plan:
+
+- Develop everything locally first.
+- Web: Angular dev server locally.
+- API: FastAPI with Uvicorn locally.
+- DB: local PostgreSQL, preferably via Docker Compose.
+- Redis: local Redis, preferably via Docker Compose.
+- Storage: local filesystem or S3-compatible local storage during early development.
+- Secrets: local `.env` files excluded from git.
+
+Later migration:
+
+- Web: Vercel or similar static hosting.
+- API: Render or similar Python/FastAPI hosting.
+- DB: managed PostgreSQL.
+- Redis: managed Redis.
+- Storage: AWS S3 or compatible object storage.
+- Secrets: hosted platform secret manager.
 
 ## 15. Implementation Plan
 

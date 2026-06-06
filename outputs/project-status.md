@@ -16,7 +16,8 @@ Last updated: 2026-06-06
 | AI Providers | OpenAI, Gemini, Anthropic behind a provider abstraction |
 | Memory | PostgreSQL first, `pgvector` for RAG when needed |
 | Queue | Celery or RQ with Redis |
-| Storage | AWS S3-compatible storage |
+| Storage | Local filesystem or S3-compatible local storage first; AWS S3-compatible storage later |
+| Environment Strategy | Local-first development; move to Vercel/Render-style hosting later |
 | Docs Policy | Keep architecture, module plan, and status docs in sync after every change |
 
 ## Overall Status
@@ -25,8 +26,9 @@ Last updated: 2026-06-06
 |---|---|---|
 | Product blueprint | Done | Architecture, data model, API contracts, UI wireframes, and implementation phases are documented. |
 | Module-wise plan | Done | Modules, tasks, dependencies, tests, and status tracker are documented. |
-| Code implementation | Planned | No application code has been scaffolded yet. |
+| Code implementation | Planned | No application code has been scaffolded yet; build locally first. |
 | GitHub sync | Done | Repository is connected and pushed to GitHub. |
+| Deployment | Deferred | Develop locally now; migrate to Vercel/Render or similar after the MVP is stable. |
 
 ## Module Status
 
@@ -55,8 +57,9 @@ Last updated: 2026-06-06
 1. Scaffold the monorepo.
 2. Create the Angular app with Bootstrap and PWA support.
 3. Create the FastAPI app with health check, config, logging, Pydantic schemas, SQLAlchemy/SQLModel, and Alembic.
-4. Add PostgreSQL local development setup.
-5. Implement Google OAuth and JWT session handling.
+4. Add local Docker Compose setup for PostgreSQL, Redis, and optional local S3-compatible storage.
+5. Add local `.env` templates for web and API.
+6. Implement Google OAuth and JWT session handling locally.
 
 ## Sync Checklist
 

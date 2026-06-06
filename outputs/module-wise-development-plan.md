@@ -87,10 +87,12 @@ Set up the technical base for frontend, backend, database, shared types, environ
 - Configure PostgreSQL.
 - Add Alembic migrations.
 - Add shared settings/config module.
+- Add local `.env` loading.
 - Add request and response validation with Pydantic.
 - Add global exception handlers.
 - Add structured logging.
 - Add health check endpoint.
+- Add Docker Compose services for local PostgreSQL, Redis, and optional S3-compatible storage.
 
 ### Frontend Tasks
 
@@ -110,12 +112,14 @@ Set up the technical base for frontend, backend, database, shared types, environ
 - Add mobile-first layout.
 - Add shared Angular components for cards, forms, page headers, empty states, loading states, and confirmation dialogs.
 - Add Angular PWA manifest and service worker.
+- Add local environment configuration for API base URL.
 
 ### Database Tasks
 
 - Create initial SQLAlchemy/SQLModel models.
 - Add base models: `User`, `Family`, `FamilyMembership`, `FamilyMember`.
 - Add Alembic migrations.
+- Add local migration workflow for development.
 
 ### APIs
 
@@ -831,7 +835,8 @@ Ensure reliable delivery through automated checks.
 - Add type checking.
 - Add Alembic migration check.
 - Add GitHub Actions CI.
-- Add deployment pipeline.
+- Keep deployment pipeline deferred until local MVP is stable.
+- Document later hosting path for Vercel-style web hosting and Render-style FastAPI hosting.
 
 ### Required Test Groups
 
