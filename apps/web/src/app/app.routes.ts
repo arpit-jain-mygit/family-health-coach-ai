@@ -19,5 +19,21 @@ export const routes: Routes = [
     canActivate: [authGuard],
     loadComponent: () =>
       import('./features/dashboard/dashboard.component').then((m) => m.DashboardComponent)
+  },
+  {
+    path: 'families/new',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/family/create-family/create-family.component').then(
+        (m) => m.CreateFamilyComponent
+      )
+  },
+  {
+    path: 'families/:familyId/settings',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/family/family-settings/family-settings.component').then(
+        (m) => m.FamilySettingsComponent
+      )
   }
 ];

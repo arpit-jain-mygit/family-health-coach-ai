@@ -1,0 +1,10 @@
+<main class="container py-4" style="max-width: 640px;">
+  <h1 class="h4 mb-3">Create family</h1>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="vstack gap-3">
+    <div>
+      <label class="form-label" for="familyName">Family name</label>
+      <input id="familyName" class="form-control" type="text" formControlName="name">
+    </div>
+    <button type="submit" class="btn btn-primary">Create family</button>
+  </form>
+</main>
