@@ -18,7 +18,46 @@ Recommended order:
 12. Leaderboard
 13. Reminders
 14. Photo and Voice Logging
-15. Security, Audit, Testing, CI/CD
+15. Security, Audit, and Compliance
+16. Testing and CI/CD
+
+## Module Status Tracker
+
+Status legend:
+
+- `Planned`: Defined in docs, not started in code.
+- `In Progress`: Implementation started.
+- `Blocked`: Waiting on a decision, dependency, or access.
+- `Done`: Implemented, tested, documented, committed, and pushed.
+
+Current status as of 2026-06-06:
+
+| Module | Phase | Status | Current Notes |
+|---|---|---|---|
+| 1. Foundation | Phase 1 | Planned | Angular + Bootstrap frontend and FastAPI backend are selected. |
+| 2. Authentication | Phase 1 | Planned | Google OAuth only, with FastAPI JWT session tokens. |
+| 3. Family Management | Phase 1 | Planned | Family is the tenant boundary. |
+| 4. Member Management | Phase 1 | Planned | Supports profile, health info, goals, and preferences. |
+| 5. AI Provider Layer | Phase 1 | Planned | Provider abstraction covers OpenAI, Gemini, and Anthropic. |
+| 6. Memory System | Phase 1/2 | Planned | Basic memory first, `pgvector` RAG later. |
+| 7. Chat | Phase 1 | Planned | WhatsApp-style Angular UI with persisted conversation history. |
+| 8. Food Logging | Phase 2 | Planned | Manual and natural-language logging first. |
+| 9. Meal Planning | Phase 2 | Planned | Personalized vegetarian/Jain/vegan meal plans. |
+| 10. Daily Dashboard | Phase 2 | Planned | Daily calories, protein, water, exercise, steps, trends, and scores. |
+| 11. Progress Tracking | Phase 2 | Planned | Health marker trends and goal progress. |
+| 12. Reports and PDF Generation | Phase 3 | Planned | Daily, weekly, monthly, family reports, and PDFs. |
+| 13. Family Leaderboard | Phase 3 | Planned | Adherence, improvement, activity, and consistency rankings. |
+| 14. Reminders | Phase 3/4 | Planned | Meal, water, walking, and medication reminders. |
+| 15. Photo and Voice Logging | Phase 4 | Planned | Photo upload, voice input, transcription, and multimodal meal review. |
+| 16. Security, Audit, and Compliance | Cross-cutting | Planned | Tenant dependencies, audit logs, rate limits, and privacy controls. |
+| 17. Testing and CI/CD | Cross-cutting | Planned | Angular tests, pytest, Alembic checks, E2E, and GitHub Actions. |
+
+## Documentation Sync Rules
+
+- Keep this module status table, `project-status.md`, and the architecture blueprint aligned after every scope or stack change.
+- When a module status changes, update both the tracker in this file and the project status document.
+- When APIs, data tables, auth, AI providers, or stack choices change, update the architecture blueprint in the same commit.
+- Every documentation update should be committed and pushed after verification.
 
 ## UI Implementation Standard
 

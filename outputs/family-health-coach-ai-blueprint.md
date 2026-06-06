@@ -15,6 +15,14 @@ The AI coach acts as:
 
 The platform supports many families, many members per family, role-based access, long-term member memory, and provider-agnostic LLM integrations across OpenAI, Gemini, and Anthropic.
 
+## Documentation Set
+
+- `family-health-coach-ai-blueprint.md`: architecture, data model, API contracts, UI wireframes, security, and phases.
+- `module-wise-development-plan.md`: module-by-module implementation plan, dependencies, tests, and module status tracker.
+- `project-status.md`: current decisions, overall status, module status, and next recommended work.
+
+These docs must stay in sync. When stack, scope, APIs, database design, module status, or implementation priorities change, update the relevant docs in the same commit and push the change.
+
 ## 2. Target Users
 
 ### Family Admin
