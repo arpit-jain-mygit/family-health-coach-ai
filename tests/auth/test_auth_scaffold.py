@@ -43,6 +43,7 @@ def test_auth_service_and_jwt_helpers_exist() -> None:
     assert "google_authorization_url" in service
     assert "complete_google_callback" in service
     assert "accounts.google.com" in service
+    assert '"prompt": "select_account consent"' in service
     assert "create_access_token" in security
     assert "decode_access_token" in security
     assert "HTTPBearer" in deps
