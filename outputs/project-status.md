@@ -12,6 +12,7 @@ Last updated: 2026-06-06
 | ORM | SQLAlchemy or SQLModel |
 | Migrations | Alembic |
 | Auth | Google OAuth only, with JWT session tokens |
+| Roles | Family Admin and Family Member only for end users; no separate app-admin role in the MVP |
 | Family Scope | One user belongs to one family only; family admins can manage any action inside their family |
 | Food Preferences | `VEGETARIAN`, `JAIN`, `VEGAN` only |
 | AI Providers | OpenAI, Gemini, Anthropic behind a provider abstraction |
@@ -32,6 +33,7 @@ Last updated: 2026-06-06
 | Deployment | Deferred | Develop locally now; migrate to Vercel/Render or similar after the MVP is stable. |
 | Local UI Preview | Available | Open `outputs/ui-preview/index.html` directly in a browser to inspect the current scaffold screens without installing Angular dependencies. The dashboard now includes a direct `Create family` action and the authenticated shell links all major feature mocks together. |
 | Local API Server | Available | Run `cd apps/api && ../../.venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload`; `/api/v1/health` and `/api/v1/auth/google` are verified. Google OAuth requires `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`; when configured it forces account selection with `prompt=select_account consent` and redirects back to the Angular callback with the token. |
+| Quick Reference | Available | Open `outputs/screen-flow-reference.md` for the screen order, module mapping, and behavior rules we refer to frequently. |
 
 ## Module Status
 

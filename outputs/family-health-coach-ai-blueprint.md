@@ -44,6 +44,7 @@ Can:
 - Download PDFs
 - Configure reminders
 - Manage goals and preferences
+- Perform any action inside the family they manage
 
 ### Family Member
 
@@ -56,6 +57,14 @@ Can:
 - Chat with AI coach
 - View own reports
 - Receive reminders
+
+### App Admin
+
+Not exposed to end users in the MVP.
+
+- No separate app-admin role in the product UI or user-facing auth flow.
+- Family Admin is the highest role inside a family.
+- App-level administration can be added later for internal support or operations if needed.
 
 ## 3. Recommended Architecture
 
