@@ -47,16 +47,16 @@ Can:
 
 ### Stack
 
-- Frontend: Next.js, TypeScript, Tailwind CSS, shadcn/ui, PWA
+- Frontend: Angular, TypeScript, Bootstrap CSS, Angular PWA
 - Backend: NestJS, TypeScript
 - Database: PostgreSQL
 - ORM: Prisma
-- Auth: Auth.js with email/password and Google OAuth
+- Auth: NestJS Auth with Passport.js, JWT, email/password, and Google OAuth
 - Storage: AWS S3-compatible object storage
 - AI providers: OpenAI, Gemini, Anthropic
 - Vector/RAG: PostgreSQL with `pgvector` for phase 1-2, optional dedicated vector DB later
 - Queue: BullMQ + Redis for report generation, reminders, photo parsing, long-running AI jobs
-- PDF: Playwright or React PDF renderer
+- PDF: Playwright or server-side PDF renderer
 - Observability: OpenTelemetry, structured logs, audit logs
 - CI/CD: GitHub Actions
 
@@ -64,8 +64,8 @@ Can:
 
 ```mermaid
 flowchart LR
-  user["Family users"] --> web["Next.js Web App / PWA"]
-  web --> auth["Auth.js"]
+  user["Family users"] --> web["Angular Web App / PWA"]
+  web --> auth["NestJS Auth / JWT"]
   web --> api["NestJS API"]
   api --> db["PostgreSQL + Prisma"]
   api --> vector["pgvector Memory Store"]
@@ -928,22 +928,34 @@ Recommended monorepo:
 family-health-coach-ai/
   apps/
     web/
-      app/
-        (auth)/
-        (dashboard)/
-        api/
-      components/
-        ui/
-        dashboard/
-        chat/
-        meals/
-        reports/
-        family/
-      hooks/
-      lib/
-      public/
-      styles/
-      next.config.ts
+      src/
+        app/
+          core/
+            api/
+            auth/
+            guards/
+            interceptors/
+            services/
+          shared/
+            components/
+            pipes/
+            directives/
+          features/
+            auth/
+            dashboard/
+            chat/
+            meals/
+            progress/
+            reports/
+            family/
+            admin/
+          app.routes.ts
+          app.config.ts
+        assets/
+        styles/
+          styles.scss
+          bootstrap-overrides.scss
+      angular.json
       package.json
     api/
       src/
@@ -1115,7 +1127,7 @@ jobs:
 
 Deployment:
 
-- Web: Vercel or AWS Amplify
+- Web: AWS Amplify, Netlify, Firebase Hosting, or static hosting behind a CDN
 - API: AWS ECS/Fargate, Render, Fly.io, or Railway initially
 - DB: managed PostgreSQL
 - Redis: managed Redis
@@ -1131,10 +1143,10 @@ Goal: usable family/member system with AI chat and conversation history.
 Deliverables:
 
 - Monorepo scaffold
-- Next.js app with Tailwind, shadcn/ui, dark mode
+- Angular app with Bootstrap CSS, responsive layout, Angular PWA, and dark mode
 - NestJS API
 - PostgreSQL + Prisma setup
-- Auth.js email/password and Google login
+- NestJS Passport/JWT email-password auth and Google login
 - Family creation
 - Admin/member roles
 - Member CRUD
@@ -1225,7 +1237,7 @@ Acceptance criteria:
 
 1. Scaffold monorepo and base infrastructure.
 2. Add Prisma schema and migrations.
-3. Implement Auth.js and session handling.
+3. Implement NestJS JWT/Passport auth and session handling.
 4. Build family and member APIs.
 5. Build dashboard shell and family/member screens.
 6. Implement LLM abstraction and OpenAI chat.
@@ -1236,7 +1248,7 @@ Acceptance criteria:
 
 ## 17. Key Product Decisions
 
-- Start with NestJS for a full TypeScript stack.
+- Start with Angular and NestJS for a full TypeScript stack.
 - Use PostgreSQL and `pgvector` before adding a separate vector database.
 - Use family-level tenancy as the primary isolation boundary.
 - Keep AI output structured and validated.

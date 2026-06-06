@@ -39,14 +39,15 @@ Set up the technical base for frontend, backend, database, shared types, environ
 
 ### Frontend Tasks
 
-- Create Next.js app.
+- Create Angular app.
 - Configure TypeScript.
-- Configure Tailwind CSS.
-- Install shadcn/ui.
+- Install Bootstrap CSS.
+- Add Bootstrap theme overrides.
+- Configure Angular routing.
 - Add dark mode.
 - Add app shell.
 - Add mobile-first layout.
-- Add shared API client.
+- Add shared Angular API services.
 
 ### Database Tasks
 
@@ -76,11 +77,11 @@ Allow users to register, login, logout, and use Google authentication.
 
 ### Backend Tasks
 
-- Configure Auth.js or compatible auth service.
+- Configure NestJS Auth with Passport.js.
 - Add email/password signup.
 - Add password hashing.
 - Add Google OAuth.
-- Add session handling.
+- Add JWT/session handling.
 - Add auth guards.
 - Add current-user decorator.
 
@@ -96,7 +97,7 @@ Allow users to register, login, logout, and use Google authentication.
 ### Database Tasks
 
 - Finalize `User`.
-- Add OAuth account/session tables if required by Auth.js adapter.
+- Add OAuth account, refresh-token, or session tables if required by the JWT/Passport implementation.
 
 ### APIs
 
