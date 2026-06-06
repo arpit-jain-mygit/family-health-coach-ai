@@ -18,6 +18,15 @@ class FamilyService:
         return list(db.scalars(statement))
 
     def create_family(self, db: Session, user_id: str, payload: FamilyCreate) -> Family:
+        existing_membership = db.scalar(
+            select(FamilyMembership).where(FamilyMembership.user_id == user_id)
+        )
+        if existing_membership is not None:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="User already belongs to a family.",
+            )
+
         family = Family(
             name=payload.name,
             goals=payload.goals,

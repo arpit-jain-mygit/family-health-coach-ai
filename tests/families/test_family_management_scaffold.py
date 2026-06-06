@@ -43,6 +43,14 @@ def test_family_service_membership_and_tenant_checks_exist() -> None:
     assert "role=FAMILY_ADMIN" in service
     assert "ensure_user_has_family_access" in service
     assert "HTTP_403_FORBIDDEN" in service
+    assert "HTTP_409_CONFLICT" in service
+    assert "User already belongs to a family." in service
+
+
+def test_family_membership_is_single_family_per_user() -> None:
+    family_model = read("apps/api/app/models/family.py")
+    assert "UniqueConstraint" in family_model
+    assert "uq_family_memberships_user_id" in family_model
 
 
 def test_family_schemas_exist() -> None:

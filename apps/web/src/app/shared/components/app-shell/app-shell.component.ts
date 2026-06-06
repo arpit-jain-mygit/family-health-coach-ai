@@ -21,12 +21,6 @@ export class AppShellComponent {
       name: 'Family A',
       goals: null,
       preferences: null
-    },
-    {
-      id: 'family-b',
-      name: 'Family B',
-      goals: null,
-      preferences: null
     }
   ];
 

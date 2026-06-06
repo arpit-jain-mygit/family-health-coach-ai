@@ -131,7 +131,9 @@ Until Angular dependencies are installed locally, inspect the current UI scaffol
 outputs/ui-preview/index.html
 ```
 
-Open that file directly in a browser. It previews the current login, auth callback, dashboard hub, authenticated shell, create family screen, family settings screen, family switcher, and the mock navigation flow across the major feature areas.
+Open that file directly in a browser. It previews the current login, auth callback, dashboard hub, authenticated shell, create family screen, family settings screen, current-family display, and the mock navigation flow across the major feature areas.
+
+Product rule: one user belongs to one family only, while the family admin can manage any action inside that family.
 
 ## Module 1: Foundation
 

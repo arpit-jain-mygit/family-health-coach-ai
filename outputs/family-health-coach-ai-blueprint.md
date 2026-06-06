@@ -13,7 +13,7 @@ The AI coach acts as:
 - Progress reviewer
 - Report generator
 
-The platform supports many families, many members per family, role-based access, long-term member memory, and provider-agnostic LLM integrations across OpenAI, Gemini, and Anthropic.
+The platform supports one family per user account, many members per family, role-based access, long-term member memory, and provider-agnostic LLM integrations across OpenAI, Gemini, and Anthropic.
 
 ## Documentation Set
 
@@ -151,8 +151,8 @@ Every protected domain table should include `familyId`.
 
 Rules:
 
-- A user may belong to one or more families in the future.
-- A family admin can access all members in their family.
+- A user may belong to only one family.
+- A family admin can access all members in their family and manage any action inside that family.
 - A family member can only access their own profile, logs, chat, and reports.
 - All backend queries must be scoped by `familyId`.
 - Use FastAPI dependencies and service-layer query helpers to enforce tenant scoping.

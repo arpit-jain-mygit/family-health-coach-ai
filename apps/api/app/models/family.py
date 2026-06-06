@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import uuid4
 
-from sqlalchemy import DateTime, ForeignKey, JSON, String
+from sqlalchemy import DateTime, ForeignKey, JSON, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db.base import Base
@@ -20,6 +20,7 @@ class Family(Base):
 
 class FamilyMembership(Base):
     __tablename__ = "family_memberships"
+    __table_args__ = (UniqueConstraint("user_id", name="uq_family_memberships_user_id"),)
 
     id: Mapped[str] = mapped_column(String, primary_key=True, default=lambda: str(uuid4()))
     family_id: Mapped[str] = mapped_column(String, ForeignKey("families.id"), index=True)

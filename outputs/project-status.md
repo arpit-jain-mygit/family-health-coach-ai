@@ -12,6 +12,7 @@ Last updated: 2026-06-06
 | ORM | SQLAlchemy or SQLModel |
 | Migrations | Alembic |
 | Auth | Google OAuth only, with JWT session tokens |
+| Family Scope | One user belongs to one family only; family admins can manage any action inside their family |
 | Food Preferences | `VEGETARIAN`, `JAIN`, `VEGAN` only |
 | AI Providers | OpenAI, Gemini, Anthropic behind a provider abstraction |
 | Memory | PostgreSQL first, `pgvector` for RAG when needed |

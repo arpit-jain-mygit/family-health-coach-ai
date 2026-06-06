@@ -1,5 +1,5 @@
-<label class="form-label" for="familySwitcher">Family</label>
-<select id="familySwitcher" class="form-select" [value]="selectedFamilyId ?? ''">
+<label class="form-label" for="familySwitcher">Current family</label>
+<select id="familySwitcher" class="form-select" [value]="selectedFamilyId ?? ''" disabled>
   <option value="">Select family</option>
   @for (family of families; track family.id) {
     <option [value]="family.id">{{ family.name }}</option>
