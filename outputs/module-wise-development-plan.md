@@ -27,7 +27,7 @@ Recommended order:
 - Keep custom CSS in SCSS files and Bootstrap variable overrides.
 - Organize screens as Angular feature folders under `src/app/features`.
 - Use standalone components and lazy-loaded routes.
-- Use Angular Reactive Forms for login, registration, member profile, meal logging, health metrics, goals, and reminder forms.
+- Use Angular Reactive Forms for member profile, meal logging, health metrics, goals, and reminder forms.
 - Use Angular `HttpClient` services for API access.
 - Use HTTP interceptors for JWT attachment, refresh handling, and API error normalization.
 - Use route guards for authenticated routes, family-admin routes, and member/self-access routes.
@@ -97,13 +97,11 @@ Set up the technical base for frontend, backend, database, shared types, environ
 
 ### Goal
 
-Allow users to register, login, logout, and use Google authentication.
+Allow users to sign in and out with Google authentication.
 
 ### Backend Tasks
 
 - Configure NestJS Auth with Passport.js.
-- Add email/password signup.
-- Add password hashing.
 - Add Google OAuth.
 - Add JWT/session handling.
 - Add auth guards.
@@ -112,33 +110,30 @@ Allow users to register, login, logout, and use Google authentication.
 ### Frontend Tasks
 
 - Login screen.
-- Register screen.
 - Google login button.
 - Authenticated route wrapper.
 - Angular auth guard.
 - Angular auth interceptor for JWT attachment.
-- Reactive login/register forms.
 - User menu.
 - Logout action.
 
 ### Database Tasks
 
 - Finalize `User`.
-- Add OAuth account, refresh-token, or session tables if required by the JWT/Passport implementation.
+- Add Google OAuth identity fields and refresh-token or session tables if required by the JWT/Passport implementation.
 
 ### APIs
 
-- `POST /auth/register`
-- `POST /auth/login`
 - `POST /auth/logout`
 - `GET /auth/google`
+- `GET /auth/google/callback`
 - `GET /auth/me`
 
 ### Tests
 
-- Register user.
-- Login with valid credentials.
-- Reject invalid password.
+- Start Google OAuth login.
+- Complete Google OAuth callback.
+- Create or update user from Google profile.
 - Protect authenticated routes.
 
 ### Dependencies

@@ -51,7 +51,7 @@ Can:
 - Backend: NestJS, TypeScript
 - Database: PostgreSQL
 - ORM: Prisma
-- Auth: NestJS Auth with Passport.js, JWT, email/password, and Google OAuth
+- Auth: NestJS Auth with Passport.js, JWT, and Google OAuth only
 - Storage: AWS S3-compatible object storage
 - AI providers: OpenAI, Gemini, Anthropic
 - Vector/RAG: PostgreSQL with `pgvector` for phase 1-2, optional dedicated vector DB later
@@ -186,7 +186,7 @@ enum ReportType {
 model User {
   id            String             @id @default(cuid())
   email         String             @unique
-  passwordHash  String?
+  googleId      String?            @unique
   name          String?
   imageUrl      String?
   memberships   FamilyMembership[]
@@ -597,9 +597,8 @@ Base URL: `/api/v1`
 
 | Method | Endpoint | Purpose |
 |---|---|---|
-| POST | `/auth/register` | Create email/password account |
-| POST | `/auth/login` | Login |
 | GET | `/auth/google` | Start Google OAuth |
+| GET | `/auth/google/callback` | Complete Google OAuth callback |
 | POST | `/auth/logout` | Logout |
 | GET | `/auth/me` | Current user and memberships |
 
@@ -821,13 +820,7 @@ Mobile-first layout:
 |                                |
 | [ Continue with Google ]        |
 |                                |
-| Email                           |
-| [________________________]      |
-| Password                        |
-| [________________________]      |
-|                                |
-| [ Sign in ]                     |
-| Create account                  |
+| Secure sign-in for families     |
 +--------------------------------+
 ```
 
@@ -956,7 +949,6 @@ family-health-coach-ai/
           features/
             auth/
               login/
-              register/
             dashboard/
             chat/
             meals/
@@ -1162,7 +1154,7 @@ Deliverables:
 - Angular app with Bootstrap CSS, responsive layout, Angular PWA, and dark mode
 - NestJS API
 - PostgreSQL + Prisma setup
-- NestJS Passport/JWT email-password auth and Google login
+- NestJS Passport/JWT Google OAuth login
 - Family creation
 - Admin/member roles
 - Member CRUD
@@ -1174,7 +1166,7 @@ Deliverables:
 
 Acceptance criteria:
 
-- A user can register and create a family.
+- A user can sign in with Google and create a family.
 - Family admin can add/edit members.
 - Member can chat with AI.
 - Conversation history persists.
@@ -1253,7 +1245,7 @@ Acceptance criteria:
 
 1. Scaffold monorepo and base infrastructure.
 2. Add Prisma schema and migrations.
-3. Implement NestJS JWT/Passport auth and session handling.
+3. Implement NestJS JWT/Passport Google OAuth and session handling.
 4. Build family and member APIs.
 5. Build dashboard shell and family/member screens.
 6. Implement LLM abstraction and OpenAI chat.
