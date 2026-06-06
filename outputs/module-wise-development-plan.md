@@ -20,6 +20,21 @@ Recommended order:
 14. Photo and Voice Logging
 15. Security, Audit, Testing, CI/CD
 
+## UI Implementation Standard
+
+- Build the frontend with Angular and TypeScript.
+- Use Bootstrap CSS for layout, spacing, utilities, responsive grids, forms, buttons, navs, tabs, modals, and cards.
+- Keep custom CSS in SCSS files and Bootstrap variable overrides.
+- Organize screens as Angular feature folders under `src/app/features`.
+- Use standalone components and lazy-loaded routes.
+- Use Angular Reactive Forms for login, registration, member profile, meal logging, health metrics, goals, and reminder forms.
+- Use Angular `HttpClient` services for API access.
+- Use HTTP interceptors for JWT attachment, refresh handling, and API error normalization.
+- Use route guards for authenticated routes, family-admin routes, and member/self-access routes.
+- Use Angular services and signals for MVP state management.
+- Add NgRx only if shared state becomes difficult to reason about.
+- Build the app as an Angular PWA with service worker, manifest, install support, and later push notifications.
+
 ## Module 1: Foundation
 
 ### Goal
@@ -44,10 +59,17 @@ Set up the technical base for frontend, backend, database, shared types, environ
 - Install Bootstrap CSS.
 - Add Bootstrap theme overrides.
 - Configure Angular routing.
+- Use Angular standalone components.
+- Configure lazy-loaded feature routes.
+- Add Angular Reactive Forms setup.
+- Add `HttpClient` API services.
+- Add auth and error HTTP interceptors.
+- Add route guards for authenticated pages.
 - Add dark mode.
 - Add app shell.
 - Add mobile-first layout.
-- Add shared Angular API services.
+- Add shared Angular components for cards, forms, page headers, empty states, loading states, and confirmation dialogs.
+- Add Angular PWA manifest and service worker.
 
 ### Database Tasks
 
@@ -62,7 +84,9 @@ Set up the technical base for frontend, backend, database, shared types, environ
 ### Tests
 
 - API health check test.
-- Frontend smoke render test.
+- Angular smoke render test.
+- Angular route guard test.
+- Angular API service test.
 - Prisma connection test.
 
 ### Dependencies
@@ -91,6 +115,9 @@ Allow users to register, login, logout, and use Google authentication.
 - Register screen.
 - Google login button.
 - Authenticated route wrapper.
+- Angular auth guard.
+- Angular auth interceptor for JWT attachment.
+- Reactive login/register forms.
 - User menu.
 - Logout action.
 

@@ -60,6 +60,21 @@ Can:
 - Observability: OpenTelemetry, structured logs, audit logs
 - CI/CD: GitHub Actions
 
+### UI Stack Details
+
+- Framework: Angular with TypeScript
+- Styling: Bootstrap CSS with project-level SCSS overrides
+- Layout: Bootstrap grid, spacing utilities, responsive breakpoints, and mobile-first components
+- Components: Angular standalone components organized by feature
+- Routing: Angular Router with lazy-loaded feature routes
+- Forms: Angular Reactive Forms with shared validators
+- API access: Angular `HttpClient` services with auth and error interceptors
+- Auth protection: Angular route guards backed by NestJS JWT/Passport auth
+- State: Angular services and signals for MVP; NgRx can be added later if state complexity grows
+- PWA: Angular service worker, app manifest, offline shell, and push notification support
+- Icons: Bootstrap Icons or another Angular-compatible icon package
+- Theme: Bootstrap variables and SCSS overrides for light/dark mode
+
 ### System Context
 
 ```mermaid
@@ -940,6 +955,8 @@ family-health-coach-ai/
             directives/
           features/
             auth/
+              login/
+              register/
             dashboard/
             chat/
             meals/
@@ -953,6 +970,7 @@ family-health-coach-ai/
         styles/
           styles.scss
           bootstrap-overrides.scss
+        manifest.webmanifest
       angular.json
       package.json
     api/
