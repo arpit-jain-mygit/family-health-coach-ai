@@ -85,7 +85,7 @@ Not exposed to end users in the MVP.
 
 ### Environment Strategy
 
-Current priority: local-first development.
+Current priority: local-first development, with deployment readiness tracked for the Vercel + Render split.
 
 - Build and run the full MVP locally before optimizing for hosted deployment.
 - Use local Angular dev server for the web app.
@@ -93,7 +93,8 @@ Current priority: local-first development.
 - Use local PostgreSQL, Redis, and S3-compatible storage through Docker Compose where possible.
 - Keep environment variables in local `.env` files that are not committed.
 - Keep deployment configuration lightweight until core modules are working.
-- Later migration target: Angular web app on Vercel or similar static hosting, FastAPI API on Render or similar Python hosting, managed PostgreSQL, managed Redis, and S3-compatible object storage.
+- Target deployment path: Angular web app on Vercel, FastAPI API on Render, managed PostgreSQL, managed Redis, and S3-compatible object storage.
+- Keep a deployment readiness checklist for the frontend API base URL, backend CORS, Google OAuth callback URI, database, Redis, and storage wiring.
 
 ### UI Stack Details
 

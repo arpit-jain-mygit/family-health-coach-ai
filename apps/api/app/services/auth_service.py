@@ -10,7 +10,7 @@ class AuthService:
         query = urlencode(
             {
                 "client_id": settings.google_client_id,
-                "redirect_uri": "http://localhost:8000/api/v1/auth/google/callback",
+                "redirect_uri": settings.google_redirect_uri,
                 "response_type": "code",
                 "scope": "openid email profile",
                 "access_type": "offline",

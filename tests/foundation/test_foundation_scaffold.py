@@ -32,6 +32,7 @@ def test_fastapi_foundation_files() -> None:
     pyproject = read("apps/api/pyproject.toml")
     for dependency in ["fastapi", "sqlalchemy", "alembic", "pydantic-settings", "uvicorn"]:
         assert dependency in pyproject
+    assert "setuptools.build_meta" in pyproject
 
 
 def test_health_route_is_declared() -> None:

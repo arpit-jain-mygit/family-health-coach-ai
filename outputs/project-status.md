@@ -19,7 +19,7 @@ Last updated: 2026-06-06
 | Memory | PostgreSQL first, `pgvector` for RAG when needed |
 | Queue | Celery or RQ with Redis |
 | Storage | Local filesystem or S3-compatible local storage first; AWS S3-compatible storage later |
-| Environment Strategy | Local-first development; move to Vercel/Render-style hosting later |
+| Environment Strategy | Local-first development; deploy the Angular UI to Vercel and the FastAPI API to Render once deployment readiness is complete |
 | Docs Policy | Keep architecture, module plan, and status docs in sync after every change |
 
 ## Overall Status
@@ -30,10 +30,11 @@ Last updated: 2026-06-06
 | Module-wise plan | Done | Modules, tasks, dependencies, tests, and status tracker are documented. |
 | Code implementation | In Progress | Module 3 Family Management is certified; Module 4 Member Management is next. |
 | GitHub sync | Done | Repository is connected and pushed to GitHub. |
-| Deployment | Deferred | Develop locally now; migrate to Vercel/Render or similar after the MVP is stable. |
+| Deployment | Ready to plan | Local development is the default now; deployment readiness steps are documented for Vercel (UI) and Render (API). |
 | Local UI Preview | Available | Open `outputs/ui-preview/index.html` directly in a browser to inspect the current scaffold screens without installing Angular dependencies. The dashboard now includes a direct `Create family` action and the authenticated shell links all major feature mocks together. |
 | Local API Server | Available | Run `cd apps/api && ../../.venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload`; `/api/v1/health` and `/api/v1/auth/google` are verified. Google OAuth requires `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`; when configured it forces account selection with `prompt=select_account consent` and redirects back to the Angular callback with the token. |
 | Quick Reference | Available | Open `outputs/screen-flow-reference.md` for the screen order, module mapping, and behavior rules we refer to frequently. |
+| Deployment Readiness | Available | Open `outputs/deployment-readiness.md` for the Vercel and Render setup checklist, environment variables, CORS, OAuth callback, and storage steps. |
 
 ## Module Status
 

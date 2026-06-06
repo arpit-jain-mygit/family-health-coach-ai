@@ -27,7 +27,7 @@ def start_google_login(
                 "Google OAuth is not configured locally. Set GOOGLE_CLIENT_ID "
                 "and GOOGLE_CLIENT_SECRET in apps/api/.env, then restart FastAPI. "
                 "Authorized redirect URI: "
-                "http://localhost:8000/api/v1/auth/google/callback"
+                f"{settings.google_redirect_uri}"
             ),
         )
 

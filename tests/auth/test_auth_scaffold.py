@@ -36,6 +36,7 @@ def test_fastapi_auth_routes_are_declared() -> None:
     assert "HTTP_503_SERVICE_UNAVAILABLE" in auth_router
     assert "GOOGLE_CLIENT_ID" in auth_router
     assert "GOOGLE_CLIENT_SECRET" in auth_router
+    assert "google_redirect_uri" in auth_router
     assert "frontend_app_url" in auth_router
     assert "urlencode" in auth_router
     assert "/auth/callback?{" in auth_router
@@ -50,6 +51,7 @@ def test_auth_service_and_jwt_helpers_exist() -> None:
     assert "complete_google_callback" in service
     assert "accounts.google.com" in service
     assert '"prompt": "select_account consent"' in service
+    assert "google_redirect_uri" in service
     assert "create_access_token" in security
     assert "decode_access_token" in security
     assert "HTTPBearer" in deps
