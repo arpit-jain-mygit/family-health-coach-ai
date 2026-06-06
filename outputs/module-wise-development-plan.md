@@ -183,6 +183,7 @@ Set up the technical base for frontend, backend, database, shared types, environ
 - Add base models: `User`, `Family`, `FamilyMembership`, `FamilyMember`.
 - Add Alembic migrations.
 - Add local migration workflow for development.
+- Bootstrap the local schema on API startup so fresh dev databases can serve the family screens immediately.
 
 ### APIs
 
@@ -195,6 +196,7 @@ Set up the technical base for frontend, backend, database, shared types, environ
 - Angular scaffold structure test: verify Angular app config, package metadata, Bootstrap dependency, environment files, and app shell files exist.
 - Local development config test: verify Docker Compose includes PostgreSQL, Redis, and local S3-compatible storage.
 - Database foundation test: verify SQLAlchemy/SQLModel and Alembic config files exist.
+- Database bootstrap test: verify the local schema bootstrap creates the core family tables on a fresh database.
 
 ### How To Test Module 1
 

@@ -23,6 +23,7 @@ def test_fastapi_foundation_files() -> None:
         "apps/api/app/api/v1/health.py",
         "apps/api/app/db/base.py",
         "apps/api/app/db/session.py",
+        "apps/api/app/db/init.py",
         "apps/api/alembic.ini",
         "apps/api/alembic/env.py",
     ]:
@@ -111,6 +112,7 @@ def test_local_development_configuration() -> None:
     main = read("apps/api/app/main.py")
     assert "CORSMiddleware" in main
     assert "allow_origins" in main
+    assert "initialize_database" in main
 
 
 if __name__ == "__main__":
