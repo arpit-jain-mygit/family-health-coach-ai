@@ -26,7 +26,7 @@ Last updated: 2026-06-06
 |---|---|---|
 | Product blueprint | Done | Architecture, data model, API contracts, UI wireframes, and implementation phases are documented. |
 | Module-wise plan | Done | Modules, tasks, dependencies, tests, and status tracker are documented. |
-| Code implementation | In Progress | Module 3 Family Management test cases are defined and implementation has started. |
+| Code implementation | In Progress | Module 3 Family Management is certified; Module 4 Member Management is next. |
 | GitHub sync | Done | Repository is connected and pushed to GitHub. |
 | Deployment | Deferred | Develop locally now; migrate to Vercel/Render or similar after the MVP is stable. |
 
@@ -36,7 +36,7 @@ Last updated: 2026-06-06
 |---|---|---|---|---|
 | 1. Foundation | Phase 1 | Certified | Certified | Foundation scaffold implemented; `python3 tests/foundation/test_foundation_scaffold.py` passed. |
 | 2. Authentication | Phase 1 | Certified | Certified | Authentication scaffold implemented; `python3 tests/auth/test_auth_scaffold.py` passed. |
-| 3. Family Management | Phase 1 | In Progress | Not certified | Test cases defined; family management scaffold implementation started. |
+| 3. Family Management | Phase 1 | Certified | Certified | Family management scaffold implemented; `python3 tests/families/test_family_management_scaffold.py` passed. |
 | 4. Member Management | Phase 1 | Planned | Not certified | Supports profile, health info, goals, and preferences. |
 | 5. AI Provider Layer | Phase 1 | Planned | Not certified | Provider abstraction covers OpenAI, Gemini, and Anthropic. |
 | 6. Memory System | Phase 1/2 | Planned | Not certified | Basic memory first, `pgvector` RAG later. |
@@ -69,11 +69,11 @@ After implementing a module:
 
 ## Next Recommended Work
 
-1. Implement family service, router, tenant dependency, and membership creation.
-2. Add Angular family creation/settings shell.
-3. Run `python3 tests/families/test_family_management_scaffold.py`.
-4. Update Module 3 status and certification log after tests pass.
-5. Commit and push the certified Module 3 update.
+1. Define Module 4 Member Management test cases before implementation.
+2. Implement member service, router, profile schemas, and family tenant checks.
+3. Add Angular member list, add member, edit member, and profile shells.
+4. Run Module 4 member management tests.
+5. Update module status and certification log after tests pass.
 
 ## Sync Checklist
 

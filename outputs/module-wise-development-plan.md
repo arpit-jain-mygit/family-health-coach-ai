@@ -36,7 +36,7 @@ Current status as of 2026-06-06:
 |---|---|---|---|---|
 | 1. Foundation | Phase 1 | Certified | Certified | Foundation scaffold implemented; `python3 tests/foundation/test_foundation_scaffold.py` passed. |
 | 2. Authentication | Phase 1 | Certified | Certified | Authentication scaffold implemented; `python3 tests/auth/test_auth_scaffold.py` passed. |
-| 3. Family Management | Phase 1 | In Progress | Not certified | Test cases defined; family management scaffold implementation started. |
+| 3. Family Management | Phase 1 | Certified | Certified | Family management scaffold implemented; `python3 tests/families/test_family_management_scaffold.py` passed. |
 | 4. Member Management | Phase 1 | Planned | Not certified | Supports profile, health info, goals, and preferences. |
 | 5. AI Provider Layer | Phase 1 | Planned | Not certified | Provider abstraction covers OpenAI, Gemini, and Anthropic. |
 | 6. Memory System | Phase 1/2 | Planned | Not certified | Basic memory first, `pgvector` RAG later. |
@@ -80,7 +80,7 @@ Certification requires:
 |---|---|---|---|---|---|
 | 1. Foundation | Certified | `python3 tests/foundation/test_foundation_scaffold.py` | Passed | 2026-06-06 | `c1f9698` |
 | 2. Authentication | Certified | `python3 tests/auth/test_auth_scaffold.py` | Passed | 2026-06-06 | `438f14c` |
-| 3. Family Management | Not certified | `python3 tests/families/test_family_management_scaffold.py` | Not run | - | - |
+| 3. Family Management | Certified | `python3 tests/families/test_family_management_scaffold.py` | Passed | 2026-06-06 | `4ed9b1e` |
 | 4. Member Management | Not certified | TBD before module start | Not run | - | - |
 | 5. AI Provider Layer | Not certified | TBD before module start | Not run | - | - |
 | 6. Memory System | Not certified | TBD before module start | Not run | - | - |
