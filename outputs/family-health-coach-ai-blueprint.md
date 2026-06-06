@@ -146,8 +146,6 @@ enum FoodPreference {
   VEGETARIAN
   JAIN
   VEGAN
-  EGGETARIAN
-  NON_VEGETARIAN
 }
 
 enum LLMProviderName {
@@ -604,7 +602,7 @@ Request:
   "goals": ["weight_loss", "better_energy"],
   "preferences": {
     "cuisine": ["Indian", "Gujarati"],
-    "foodPreference": "vegetarian"
+    "foodPreference": "VEGETARIAN"
   }
 }
 ```
