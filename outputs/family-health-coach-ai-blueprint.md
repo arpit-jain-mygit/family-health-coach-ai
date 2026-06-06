@@ -23,6 +23,12 @@ The platform supports many families, many members per family, role-based access,
 
 These docs must stay in sync. When stack, scope, APIs, database design, module status, or implementation priorities change, update the relevant docs in the same commit and push the change.
 
+Before every commit, run this stale-stack scan and fix any outdated references:
+
+```bash
+rg -n "N[e]xt\\.js|N[e]xtJS|n[e]xt\\.js|n[e]xtjs|T[a]ilwind|t[a]ilwind|s[h]adcn|A[u]th\\.js|N[e]stJS|P[r]isma|s[c]hema\\.prisma|R[e]act PDF|B[u]llMQ" .
+```
+
 ## 2. Target Users
 
 ### Family Admin

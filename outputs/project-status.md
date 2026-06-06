@@ -85,4 +85,6 @@ Before each commit:
 - Update this file for current decisions and module status changes.
 - Before starting a module, document its test cases.
 - After finishing a module, run its test cases and update certification status.
+- Run the stale-stack scan and fix any outdated stack references before committing:
+  `rg -n "N[e]xt\\.js|N[e]xtJS|n[e]xt\\.js|n[e]xtjs|T[a]ilwind|t[a]ilwind|s[h]adcn|A[u]th\\.js|N[e]stJS|P[r]isma|s[c]hema\\.prisma|R[e]act PDF|B[u]llMQ" .`
 - Commit and push the documentation changes with the implementation changes.
