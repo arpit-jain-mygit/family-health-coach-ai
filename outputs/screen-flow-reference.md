@@ -9,12 +9,13 @@ Use this as the quick map for what the app should do and in what order.
 3. Add members to the family.
 4. Land on the dashboard.
 5. Use chat, food logging, meal planning, progress, reports, leaderboard, reminders, and admin from the shell.
+6. If the user already has a family, the create-family screen should redirect them to that family's settings instead of creating a second family.
 
 ## Screen To Module Map
 
 | Screen | Module | Expected Behavior |
 |---|---|---|
-| Create Family | Module 3 | Create the single family for the user, then open family settings. |
+| Create Family | Module 3 | Create the single family for the user, or show the existing-family notice and open family settings if one already exists. |
 | Add / Edit Members | Module 4 | Add household members, edit profiles, goals, and health info. |
 | Member Profile | Module 4 | View one member’s details, health markers, and history. |
 | Dashboard | Module 10 | Show daily calories, protein, water, exercise, steps, trends, and scores. |
@@ -30,6 +31,7 @@ Use this as the quick map for what the app should do and in what order.
 ## Behavior Rules
 
 - One user belongs to one family only.
+- Create Family is a single-family onboarding screen: it creates the family when none exists, and otherwise routes the user to the existing family settings page.
 - End users only have Family Admin and Family Member roles.
 - There is no separate App Admin role in the MVP user flow.
 - The family admin can manage any action inside that family.

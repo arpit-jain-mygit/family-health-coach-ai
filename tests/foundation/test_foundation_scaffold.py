@@ -108,6 +108,9 @@ def test_local_development_configuration() -> None:
 
     api_config = read("apps/api/app/core/config.py")
     assert 'Path(__file__).resolve().parents[2] / ".env"' in api_config
+    main = read("apps/api/app/main.py")
+    assert "CORSMiddleware" in main
+    assert "allow_origins" in main
 
 
 if __name__ == "__main__":

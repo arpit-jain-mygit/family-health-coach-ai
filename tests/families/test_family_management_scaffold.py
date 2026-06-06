@@ -91,6 +91,9 @@ def test_angular_family_routes_and_api_methods_exist() -> None:
         assert method in api_service
     assert "ReactiveFormsModule" in create_component
     assert "createFamily" in create_component
+    assert "listFamilies" in create_component
+    assert "errorMessage" in create_component
+    assert "navigateByUrl(`/families/${family.id}/settings`)" in create_component
 
 
 if __name__ == "__main__":
