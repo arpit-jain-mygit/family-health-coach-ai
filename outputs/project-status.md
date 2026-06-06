@@ -26,7 +26,7 @@ Last updated: 2026-06-06
 |---|---|---|
 | Product blueprint | Done | Architecture, data model, API contracts, UI wireframes, and implementation phases are documented. |
 | Module-wise plan | Done | Modules, tasks, dependencies, tests, and status tracker are documented. |
-| Code implementation | In Progress | Module 1 Foundation is certified; Module 2 Authentication is next. |
+| Code implementation | In Progress | Module 2 Authentication test cases are defined and implementation has started. |
 | GitHub sync | Done | Repository is connected and pushed to GitHub. |
 | Deployment | Deferred | Develop locally now; migrate to Vercel/Render or similar after the MVP is stable. |
 
@@ -35,7 +35,7 @@ Last updated: 2026-06-06
 | Module | Phase | Status | Certification | Current Notes |
 |---|---|---|---|---|
 | 1. Foundation | Phase 1 | Certified | Certified | Foundation scaffold implemented; `python3 tests/foundation/test_foundation_scaffold.py` passed. |
-| 2. Authentication | Phase 1 | Planned | Not certified | Google OAuth only, with FastAPI JWT session tokens. |
+| 2. Authentication | Phase 1 | In Progress | Not certified | Test cases defined; Google OAuth/JWT scaffold implementation started. |
 | 3. Family Management | Phase 1 | Planned | Not certified | Family is the tenant boundary. |
 | 4. Member Management | Phase 1 | Planned | Not certified | Supports profile, health info, goals, and preferences. |
 | 5. AI Provider Layer | Phase 1 | Planned | Not certified | Provider abstraction covers OpenAI, Gemini, and Anthropic. |
@@ -69,11 +69,11 @@ After implementing a module:
 
 ## Next Recommended Work
 
-1. Define Module 2 Authentication test cases before implementation.
-2. Implement Google OAuth and JWT session handling locally.
-3. Add FastAPI auth routes and Angular auth callback handling.
-4. Run Module 2 authentication tests.
-5. Update module status and certification log after tests pass.
+1. Implement Google OAuth and JWT session handling locally.
+2. Add FastAPI auth routes and Angular auth callback handling.
+3. Run `python3 tests/auth/test_auth_scaffold.py`.
+4. Update Module 2 status and certification log after tests pass.
+5. Commit and push the certified Module 2 update.
 
 ## Sync Checklist
 

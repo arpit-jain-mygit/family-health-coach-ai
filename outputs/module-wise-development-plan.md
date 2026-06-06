@@ -35,7 +35,7 @@ Current status as of 2026-06-06:
 | Module | Phase | Status | Certification | Current Notes |
 |---|---|---|---|---|
 | 1. Foundation | Phase 1 | Certified | Certified | Foundation scaffold implemented; `python3 tests/foundation/test_foundation_scaffold.py` passed. |
-| 2. Authentication | Phase 1 | Planned | Not certified | Google OAuth only, with FastAPI JWT session tokens. |
+| 2. Authentication | Phase 1 | In Progress | Not certified | Test cases defined; Google OAuth/JWT scaffold implementation started. |
 | 3. Family Management | Phase 1 | Planned | Not certified | Family is the tenant boundary. |
 | 4. Member Management | Phase 1 | Planned | Not certified | Supports profile, health info, goals, and preferences. |
 | 5. AI Provider Layer | Phase 1 | Planned | Not certified | Provider abstraction covers OpenAI, Gemini, and Anthropic. |
@@ -79,7 +79,7 @@ Certification requires:
 | Module | Status | Test Command | Result | Certified On | Commit |
 |---|---|---|---|---|---|
 | 1. Foundation | Certified | `python3 tests/foundation/test_foundation_scaffold.py` | Passed | 2026-06-06 | `c1f9698` |
-| 2. Authentication | Not certified | TBD before module start | Not run | - | - |
+| 2. Authentication | Not certified | `python3 tests/auth/test_auth_scaffold.py` | Not run | - | - |
 | 3. Family Management | Not certified | TBD before module start | Not run | - | - |
 | 4. Member Management | Not certified | TBD before module start | Not run | - | - |
 | 5. AI Provider Layer | Not certified | TBD before module start | Not run | - | - |
@@ -257,10 +257,45 @@ Allow users to sign in and out with Google authentication.
 
 ### Tests
 
-- Start Google OAuth login.
-- Complete Google OAuth callback.
-- Create or update user from Google profile.
-- Protect authenticated routes.
+- Authentication scaffold verification: `python3 tests/auth/test_auth_scaffold.py`.
+- Start Google OAuth login: verify `/api/v1/auth/google` route exists and delegates to the auth service.
+- Complete Google OAuth callback: verify `/api/v1/auth/google/callback` route exists and returns a token response shape.
+- Current user dependency: verify auth dependency reads bearer token and exposes current user id.
+- Logout endpoint: verify `/api/v1/auth/logout` route exists.
+- Angular auth callback structure: verify callback component stores token and redirects.
+- Angular auth guard/interceptor structure: verify guarded routes and bearer-token attachment exist.
+
+### How To Test Module 2
+
+Run from the repository root:
+
+```bash
+python3 tests/auth/test_auth_scaffold.py
+```
+
+Expected output:
+
+```text
+Module 2 authentication scaffold checks passed.
+```
+
+This test verifies:
+
+- FastAPI auth router exists.
+- `/api/v1/auth/google`, `/api/v1/auth/google/callback`, `/api/v1/auth/me`, and `/api/v1/auth/logout` are declared.
+- JWT creation and decoding helpers exist.
+- Current-user dependency uses bearer-token authentication.
+- Auth service has Google OAuth URL and callback handling hooks.
+- Angular login and callback routes exist.
+- Angular callback component stores the token and redirects.
+- Angular auth service, auth guard, and auth interceptor are wired.
+
+If the test fails:
+
+- Read the missing file or missing text assertion in the terminal output.
+- Restore or create the expected auth scaffold file.
+- Rerun the same command until it passes.
+- Do not mark Module 2 `Certified` unless this command passes.
 
 ### Dependencies
 

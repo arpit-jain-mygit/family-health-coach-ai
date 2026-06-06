@@ -7,6 +7,10 @@ export class AuthService {
     return Boolean(localStorage.getItem('family_health_token'));
   }
 
+  storeToken(token: string): void {
+    localStorage.setItem('family_health_token', token);
+  }
+
   loginWithGoogle(): void {
     window.location.href = `${environment.apiBaseUrl}/api/v1/auth/google`;
   }
