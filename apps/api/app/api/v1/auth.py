@@ -1,9 +1,11 @@
+from urllib.parse import urlencode
+
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from fastapi.responses import RedirectResponse
 
 from app.api.deps import CurrentUserId
 from app.core.config import get_settings
-from app.schemas.auth import CurrentUserResponse, LogoutResponse, TokenResponse
+from app.schemas.auth import CurrentUserResponse, LogoutResponse
 from app.services.auth_service import AuthService
 
 router = APIRouter(prefix="/auth", tags=["auth"])
@@ -32,12 +34,15 @@ def start_google_login(
     return RedirectResponse(auth_service.google_authorization_url())
 
 
-@router.get("/google/callback", response_model=TokenResponse)
+@router.get("/google/callback")
 def complete_google_login(
     code: str = Query(...),
     auth_service: AuthService = Depends(get_auth_service),
-) -> TokenResponse:
-    return TokenResponse(access_token=auth_service.complete_google_callback(code))
+) -> RedirectResponse:
+    token = auth_service.complete_google_callback(code)
+    settings = get_settings()
+    callback_url = f"{settings.frontend_app_url}/auth/callback?{urlencode({'token': token})}"
+    return RedirectResponse(callback_url)
 
 
 @router.get("/me", response_model=CurrentUserResponse)

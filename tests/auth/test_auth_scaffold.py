@@ -36,7 +36,9 @@ def test_fastapi_auth_routes_are_declared() -> None:
     assert "HTTP_503_SERVICE_UNAVAILABLE" in auth_router
     assert "GOOGLE_CLIENT_ID" in auth_router
     assert "GOOGLE_CLIENT_SECRET" in auth_router
-    assert "TokenResponse" in auth_router
+    assert "frontend_app_url" in auth_router
+    assert "urlencode" in auth_router
+    assert "/auth/callback?{" in auth_router
     assert "CurrentUserResponse" in auth_router
 
 

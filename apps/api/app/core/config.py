@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     jwt_secret: str = "change-me-local-only"
     google_client_id: str = ""
     google_client_secret: str = ""
+    frontend_app_url: str = "http://localhost:4200"
     s3_endpoint_url: str = "http://localhost:9000"
     s3_access_key_id: str = "family_health"
     s3_secret_access_key: str = "family_health_password"

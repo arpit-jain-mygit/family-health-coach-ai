@@ -329,6 +329,7 @@ Expected API results:
 - `/api/v1/auth/google` returns `503 Service Unavailable` with a local setup message when `GOOGLE_CLIENT_ID` or `GOOGLE_CLIENT_SECRET` is missing.
 - After Google OAuth credentials are configured, `/api/v1/auth/google` returns `307 Temporary Redirect` to Google OAuth.
 - The Google OAuth redirect includes `prompt=select_account consent`, so Google shows the account chooser instead of silently using the already signed-in account.
+- `/api/v1/auth/google/callback` redirects into the Angular app at `/auth/callback?token=...`, and the Angular callback stores the token before sending the user to the dashboard.
 
 If Google shows `Access blocked: Authorization Error`:
 
