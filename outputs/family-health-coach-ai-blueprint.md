@@ -75,7 +75,7 @@ Not exposed to end users in the MVP.
 - Database: PostgreSQL
 - ORM: SQLAlchemy or SQLModel with Alembic migrations
 - Auth: FastAPI Google OAuth with JWT session tokens
-- Storage: AWS S3-compatible object storage
+- Storage: Google Cloud Storage
 - AI providers: OpenAI, Gemini, Anthropic
 - Vector/RAG: PostgreSQL with `pgvector` for phase 1-2, optional dedicated vector DB later
 - Queue: Celery or RQ with Redis for report generation, reminders, photo parsing, and long-running AI jobs
@@ -90,11 +90,11 @@ Current priority: local-first development, with deployment readiness tracked for
 - Build and run the full MVP locally before optimizing for hosted deployment.
 - Use local Angular dev server for the web app.
 - Use local FastAPI/Uvicorn for the API.
-- Use local PostgreSQL, Redis, and S3-compatible storage through Docker Compose where possible.
+- Use local PostgreSQL, Redis, and local file or compatible storage through Docker Compose where possible.
 - Keep environment variables in local `.env` files that are not committed.
 - Keep deployment configuration lightweight until core modules are working.
-- Target deployment path: Angular web app on Vercel, FastAPI API on Render, managed PostgreSQL, managed Redis, and S3-compatible object storage.
-- Keep a deployment readiness checklist for the frontend API base URL, backend CORS, Google OAuth callback URI, database, Redis, and storage wiring.
+- Target deployment path: Angular web app on Vercel, FastAPI API on Render, managed PostgreSQL, managed Redis, and Google Cloud Storage.
+- Keep a deployment readiness checklist for the frontend API base URL, backend CORS, Google OAuth callback URI, database, Redis, and Google Cloud Storage wiring.
 
 ### UI Stack Details
 
@@ -929,7 +929,7 @@ Current plan:
 - API: FastAPI with Uvicorn locally.
 - DB: local PostgreSQL, preferably via Docker Compose.
 - Redis: local Redis, preferably via Docker Compose.
-- Storage: local filesystem or S3-compatible local storage during early development.
+- Storage: local filesystem during early development, Google Cloud Storage in production.
 - Secrets: local `.env` files excluded from git.
 
 Later migration:
@@ -938,7 +938,7 @@ Later migration:
 - API: Render or similar Python/FastAPI hosting.
 - DB: managed PostgreSQL.
 - Redis: managed Redis.
-- Storage: AWS S3 or compatible object storage.
+- Storage: Google Cloud Storage.
 - Secrets: hosted platform secret manager.
 
 ## 15. Implementation Plan

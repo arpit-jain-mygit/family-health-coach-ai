@@ -16,10 +16,9 @@ class Settings(BaseSettings):
     google_client_secret: str = ""
     google_redirect_uri: str = "http://localhost:8000/api/v1/auth/google/callback"
     frontend_app_url: str = "http://localhost:4200"
-    s3_endpoint_url: str = "http://localhost:9000"
-    s3_access_key_id: str = "family_health"
-    s3_secret_access_key: str = "family_health_password"
-    s3_bucket: str = "family-health-local"
+    gcp_project_id: str = ""
+    gcs_bucket_name: str = ""
+    gcp_service_account_json: str = ""
 
     model_config = SettingsConfigDict(
         env_file=str(Path(__file__).resolve().parents[2] / ".env"),

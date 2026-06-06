@@ -18,7 +18,7 @@ Last updated: 2026-06-06
 | AI Providers | OpenAI, Gemini, Anthropic behind a provider abstraction |
 | Memory | PostgreSQL first, `pgvector` for RAG when needed |
 | Queue | Celery or RQ with Redis |
-| Storage | Local filesystem or S3-compatible local storage first; AWS S3-compatible storage later |
+| Storage | Local filesystem first; Google Cloud Storage for production |
 | Environment Strategy | Local-first development; deploy the Angular UI to Vercel and the FastAPI API to Render once deployment readiness is complete |
 | Docs Policy | Keep architecture, module plan, and status docs in sync after every change |
 

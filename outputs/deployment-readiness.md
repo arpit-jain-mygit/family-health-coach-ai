@@ -8,7 +8,7 @@ Use this when we move beyond local development and put the UI on Vercel and the 
 - Backend: FastAPI app on Render
 - Database: Render Postgres
 - Queue: Render Redis
-- File storage: S3-compatible storage such as AWS S3 or another compatible provider
+- File storage: Google Cloud Storage
 - Auth: Google OAuth with JWT session tokens
 
 ## Must-Have Decisions
@@ -58,10 +58,9 @@ Set these in Render for production:
 - `GOOGLE_CLIENT_SECRET` -> Google OAuth client secret
 - `GOOGLE_REDIRECT_URI` -> deployed API callback, for example `https://<your-render-api>/api/v1/auth/google/callback`
 - `FRONTEND_APP_URL` -> deployed Vercel URL, for example `https://<your-app>.vercel.app`
-- `S3_ENDPOINT_URL` -> S3-compatible endpoint
-- `S3_ACCESS_KEY_ID` -> storage access key
-- `S3_SECRET_ACCESS_KEY` -> storage secret
-- `S3_BUCKET` -> storage bucket name
+- `GCP_PROJECT_ID` -> Google Cloud project ID
+- `GCS_BUCKET_NAME` -> Google Cloud Storage bucket name
+- `GCP_SERVICE_ACCOUNT_JSON` -> service account JSON as a secret string
 
 ## Google OAuth
 
@@ -81,7 +80,7 @@ Set these in Render for production:
 
 1. Provision Render Postgres before production traffic.
 2. Provision Render Redis before reminders, queues, or report jobs go live.
-3. Connect the API to an S3-compatible store before enabling photo uploads and PDF exports in production.
+3. Connect the API to Google Cloud Storage before enabling photo uploads and PDF exports in production.
 4. Prefer real migrations for production traffic. The local schema bootstrap is useful for development, but production should move to Alembic migrations as soon as the migration files exist.
 
 ## Security And Ops
@@ -102,7 +101,6 @@ Set these in Render for production:
 - [ ] Vercel origin is allowed by backend CORS.
 - [ ] Postgres is provisioned and connected.
 - [ ] Redis is provisioned and connected.
-- [ ] S3-compatible storage is provisioned and connected.
+- [ ] Google Cloud Storage bucket is provisioned and connected.
 - [ ] Health endpoint returns ok in production.
 - [ ] Auth login and callback work from the deployed frontend.
-
