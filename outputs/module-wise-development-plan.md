@@ -300,6 +300,34 @@ This test verifies:
 - Angular callback component stores the token and redirects.
 - Angular auth service, auth guard, and auth interceptor are wired.
 
+To test the running local API:
+
+1. Install API dependencies once:
+
+```bash
+/Users/arpit/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -m venv .venv
+.venv/bin/python -m pip install -e 'apps/api[dev]'
+```
+
+2. Start FastAPI from the API folder:
+
+```bash
+cd apps/api
+../../.venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
+```
+
+3. Open or curl:
+
+```bash
+curl -i http://127.0.0.1:8000/api/v1/health
+curl -i http://127.0.0.1:8000/api/v1/auth/google
+```
+
+Expected API results:
+
+- `/api/v1/health` returns `{"status":"ok"}`.
+- `/api/v1/auth/google` returns `307 Temporary Redirect` to Google OAuth.
+
 If the test fails:
 
 - Read the missing file or missing text assertion in the terminal output.
