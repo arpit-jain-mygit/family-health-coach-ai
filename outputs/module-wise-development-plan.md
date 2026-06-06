@@ -184,6 +184,7 @@ Set up the technical base for frontend, backend, database, shared types, environ
 - Add Alembic migrations.
 - Add local migration workflow for development.
 - Bootstrap the local schema on API startup so fresh dev databases can serve the family screens immediately.
+- If Postgres is unavailable in local dev, fall back to a local SQLite database so the family flow does not hang.
 
 ### APIs
 
@@ -197,6 +198,7 @@ Set up the technical base for frontend, backend, database, shared types, environ
 - Local development config test: verify Docker Compose includes PostgreSQL, Redis, and local S3-compatible storage.
 - Database foundation test: verify SQLAlchemy/SQLModel and Alembic config files exist.
 - Database bootstrap test: verify the local schema bootstrap creates the core family tables on a fresh database.
+- Database fallback test: verify the API falls back to SQLite when the local Postgres URL is unavailable.
 
 ### How To Test Module 1
 
