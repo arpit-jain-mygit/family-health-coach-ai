@@ -123,6 +123,16 @@ Certification requires:
 - Add NgRx only if shared state becomes difficult to reason about.
 - Build the app as an Angular PWA with service worker, manifest, install support, and later push notifications.
 
+## Local UI Preview
+
+Until Angular dependencies are installed locally, inspect the current UI scaffold with the dependency-free preview:
+
+```text
+outputs/ui-preview/index.html
+```
+
+Open that file directly in a browser. It previews the current login, auth callback, dashboard shell, create family screen, family settings screen, and family switcher.
+
 ## Module 1: Foundation
 
 ### Goal

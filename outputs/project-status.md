@@ -29,6 +29,7 @@ Last updated: 2026-06-06
 | Code implementation | In Progress | Module 3 Family Management is certified; Module 4 Member Management is next. |
 | GitHub sync | Done | Repository is connected and pushed to GitHub. |
 | Deployment | Deferred | Develop locally now; migrate to Vercel/Render or similar after the MVP is stable. |
+| Local UI Preview | Available | Open `outputs/ui-preview/index.html` directly in a browser to inspect the current scaffold screens without installing Angular dependencies. |
 
 ## Module Status
 

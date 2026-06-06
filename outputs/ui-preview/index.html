@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Family Health Coach AI - Local UI Preview</title>
+    <style>
+      :root {
+        --bg: #f6f8fb;
+        --panel: #ffffff;
+        --text: #17202a;
+        --muted: #667085;
+        --line: #d8dee8;
+        --primary: #0d6efd;
+        --primary-dark: #0b5ed7;
+        --success: #198754;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: var(--panel);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .topbar {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 14px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .brand {
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      nav {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      nav a {
+        color: var(--text);
+        text-decoration: none;
+        padding: 8px 10px;
+        border-radius: 6px;
+        font-size: 14px;
+      }
+
+      nav a:hover {
+        background: #edf2ff;
+      }
+
+      main {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 24px 20px 56px;
+      }
+
+      .notice {
+        border: 1px solid #b6d4fe;
+        background: #e7f1ff;
+        padding: 12px 14px;
+        border-radius: 8px;
+        color: #084298;
+        margin-bottom: 18px;
+      }
+
+      .screens {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 18px;
+      }
+
+      .screen {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        min-height: 320px;
+      }
+
+      .screen h2 {
+        margin: 0;
+        padding: 14px 16px;
+        font-size: 16px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .screen-body {
+        padding: 18px 16px;
+      }
+
+      .centered {
+        min-height: 245px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .login-box {
+        width: 100%;
+        max-width: 360px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 40px;
+        border: 0;
+        border-radius: 6px;
+        padding: 10px 14px;
+        background: var(--primary);
+        color: white;
+        font-weight: 600;
+        cursor: default;
+        width: 100%;
+      }
+
+      .btn:hover {
+        background: var(--primary-dark);
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 14px;
+        background: #fff;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .metric {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .value {
+        margin-top: 4px;
+        font-size: 20px;
+        font-weight: 700;
+      }
+
+      label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+
+      input,
+      select {
+        width: 100%;
+        min-height: 40px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 8px 10px;
+        font: inherit;
+      }
+
+      .stack {
+        display: grid;
+        gap: 14px;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--success);
+        font-weight: 700;
+        font-size: 14px;
+      }
+
+      .status::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--success);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="topbar">
+        <div class="brand">Family Health Coach AI</div>
+        <nav aria-label="Preview screens">
+          <a href="#login">Login</a>
+          <a href="#dashboard">Dashboard</a>
+          <a href="#family">Family</a>
+          <a href="#settings">Settings</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="notice">
+        Local visual preview for the current Angular scaffold. This file is dependency-free so it can be opened directly in a browser.
+      </div>
+
+      <section class="screens">
+        <article class="screen" id="login">
+          <h2>Login Screen</h2>
+          <div class="screen-body centered">
+            <div class="login-box stack">
+              <div>
+                <h3>Family Health Coach AI</h3>
+                <p class="muted">Secure sign-in for families</p>
+              </div>
+              <button class="btn">Continue with Google</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="screen">
+          <h2>Auth Callback</h2>
+          <div class="screen-body centered">
+            <div class="status">Signing you in...</div>
+          </div>
+        </article>
+
+        <article class="screen" id="dashboard">
+          <h2>Dashboard Shell</h2>
+          <div class="screen-body stack">
+            <div>
+              <h3>Today</h3>
+              <p class="muted">Foundation-ready dashboard placeholder</p>
+            </div>
+            <div class="grid">
+              <div class="card">
+                <div class="metric">Calories</div>
+                <div class="value">--</div>
+              </div>
+              <div class="card">
+                <div class="metric">Protein</div>
+                <div class="value">--</div>
+              </div>
+              <div class="card">
+                <div class="metric">Water</div>
+                <div class="value">--</div>
+              </div>
+              <div class="card">
+                <div class="metric">Steps</div>
+                <div class="value">--</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="screen" id="family">
+          <h2>Create Family</h2>
+          <div class="screen-body stack">
+            <div>
+              <label for="familyName">Family name</label>
+              <input id="familyName" value="Sharma Family">
+            </div>
+            <button class="btn">Create family</button>
+          </div>
+        </article>
+
+        <article class="screen" id="settings">
+          <h2>Family Settings</h2>
+          <div class="screen-body stack">
+            <div>
+              <label for="familySwitcher">Family</label>
+              <select id="familySwitcher">
+                <option>Sharma Family</option>
+                <option>Jain Family</option>
+              </select>
+            </div>
+            <div class="card">
+              <div class="metric">Family ID</div>
+              <div class="value">fam_local_preview</div>
+            </div>
+            <p class="muted">Member management begins in Module 4.</p>
+          </div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
