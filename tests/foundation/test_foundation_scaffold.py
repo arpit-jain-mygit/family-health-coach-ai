@@ -96,6 +96,7 @@ def test_angular_core_structure_exists() -> None:
 def test_local_development_configuration() -> None:
     assert_file("docker-compose.yml")
     assert_file(".env.example")
+    assert_file("apps/api/.env.example")
 
     compose = read("docker-compose.yml")
     for service in ["postgres", "redis", "minio"]:
@@ -104,6 +105,9 @@ def test_local_development_configuration() -> None:
     env_example = read(".env.example")
     for key in ["DATABASE_URL", "REDIS_URL", "JWT_SECRET", "GOOGLE_CLIENT_ID"]:
         assert key in env_example
+
+    api_config = read("apps/api/app/core/config.py")
+    assert 'Path(__file__).resolve().parents[2] / ".env"' in api_config
 
 
 if __name__ == "__main__":
