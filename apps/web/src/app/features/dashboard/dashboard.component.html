@@ -1,20 +1,48 @@
 <main class="container py-4">
-  <section class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
-    <div>
-      <h1 class="h4 mb-1">Today</h1>
-      <p class="text-body-secondary mb-0">Start by adding a family, then invite members.</p>
+  <section class="d-flex flex-wrap align-items-end justify-content-between gap-3 mb-4">
+    <div class="col-12 col-lg-8">
+      <p class="text-uppercase small text-body-secondary mb-1">Home</p>
+      <h1 class="display-6 mb-2">Family health command center</h1>
+      <p class="lead text-body-secondary mb-0">
+        Start with a family, then move through members, chat, food logs, plans, progress, reports, leaderboard,
+        reminders, and admin.
+      </p>
     </div>
-    <a class="btn btn-primary" routerLink="/families/new">Create family</a>
+    <div class="d-flex flex-wrap gap-2">
+      <a class="btn btn-primary" routerLink="/families/new">Create family</a>
+      <a class="btn btn-outline-secondary" routerLink="/chat">Open chat</a>
+    </div>
+  </section>
+
+  <section class="row g-3 mb-4">
+    @for (step of setupSteps; track step) {
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="card h-100">
+          <div class="card-body">
+            <p class="text-body-secondary small text-uppercase mb-2">Setup step</p>
+            <p class="mb-0">{{ step }}</p>
+          </div>
+        </div>
+      </div>
+    }
   </section>
 
   <section class="row g-3">
-    <div class="col-12 col-md-6">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="h6">Calories</h2>
-          <p class="mb-0">Foundation ready</p>
-        </div>
+    @for (card of featureCards; track card.title) {
+      <div class="col-12 col-md-6 col-xl-4">
+        <a class="card h-100 text-decoration-none text-body" [routerLink]="card.link">
+          <div class="card-body">
+            <div class="d-flex align-items-start justify-content-between gap-3">
+              <div>
+                <p class="text-body-secondary small text-uppercase mb-1">{{ card.title }}</p>
+                <h2 class="h5 mb-2">{{ card.title }}</h2>
+                <p class="mb-0 text-body-secondary">{{ card.summary }}</p>
+              </div>
+              <i class="bi {{ card.icon }} fs-4 text-primary"></i>
+            </div>
+          </div>
+        </a>
       </div>
-    </div>
+    }
   </section>
 </main>

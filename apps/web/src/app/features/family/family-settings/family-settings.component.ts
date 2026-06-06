@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-family-settings',
   standalone: true,
+  imports: [RouterLink],
   templateUrl: './family-settings.component.html',
   styleUrl: './family-settings.component.scss'
 })

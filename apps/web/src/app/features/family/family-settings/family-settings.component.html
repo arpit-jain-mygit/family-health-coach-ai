@@ -1,4 +1,60 @@
-<main class="container py-4">
-  <h1 class="h4">Family settings</h1>
-  <p class="text-body-secondary mb-0">Family ID: {{ familyId }}</p>
+<main class="container-fluid py-4">
+  <section class="row g-4">
+    <div class="col-12 col-xl-8">
+      <p class="text-uppercase small text-body-secondary mb-1">Module 3</p>
+      <h1 class="display-6 mb-2">Family settings</h1>
+      <p class="lead text-body-secondary mb-4">Family ID: {{ familyId }}</p>
+
+      <div class="d-flex flex-wrap gap-2 mb-4">
+        <a class="btn btn-primary" routerLink="/members">Manage members</a>
+        <a class="btn btn-outline-secondary" routerLink="/chat">Open chat</a>
+        <a class="btn btn-outline-secondary" routerLink="/reports">Review reports</a>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-12 col-md-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <p class="text-body-secondary small text-uppercase mb-1">Family goals</p>
+              <h2 class="h5 mb-2">Weight, waist, energy, stamina</h2>
+              <p class="mb-0 text-body-secondary">Set the target shape for every family member.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <p class="text-body-secondary small text-uppercase mb-1">Family preferences</p>
+              <h2 class="h5 mb-2">Vegetarian, Jain, vegan</h2>
+              <p class="mb-0 text-body-secondary">Only the supported diet modes are shown in the mock UI.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-xl-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <p class="text-body-secondary small text-uppercase mb-2">Family flow</p>
+          <ol class="mb-0 ps-3">
+            <li class="mb-2">Create the family record.</li>
+            <li class="mb-2">Invite and edit members.</li>
+            <li class="mb-2">Move into chat, plans, and reports.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <p class="text-body-secondary small text-uppercase mb-2">Next screens</p>
+          <div class="vstack gap-2">
+            <a class="btn btn-outline-primary text-start" routerLink="/members">Members</a>
+            <a class="btn btn-outline-primary text-start" routerLink="/chat">Chat</a>
+            <a class="btn btn-outline-primary text-start" routerLink="/progress">Progress</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>

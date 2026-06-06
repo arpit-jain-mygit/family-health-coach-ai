@@ -1,0 +1,62 @@
+<main class="container-fluid py-4">
+  <section class="row g-4">
+    <div class="col-12 col-xl-8">
+      <p class="text-uppercase small text-body-secondary mb-2">{{ page.eyebrow }}</p>
+      <h1 class="display-6 mb-3">{{ page.title }}</h1>
+      <p class="lead text-body-secondary mb-4">{{ page.description }}</p>
+      <p class="badge text-bg-light border text-body-secondary mb-4">{{ page.summary }}</p>
+      <div class="d-flex flex-wrap gap-2 mb-4">
+        @if (page.primaryAction) {
+          <a class="btn btn-primary" [routerLink]="page.primaryAction.link">
+            {{ page.primaryAction.label }}
+          </a>
+        }
+        @if (page.secondaryAction) {
+          <a class="btn btn-outline-secondary" [routerLink]="page.secondaryAction.link">
+            {{ page.secondaryAction.label }}
+          </a>
+        }
+      </div>
+
+      <div class="row g-3">
+        @for (card of page.cards; track card.title) {
+          <div class="col-12 col-md-6">
+            <div class="card h-100">
+              <div class="card-body">
+                <p class="text-body-secondary small text-uppercase mb-1">{{ card.title }}</p>
+                <h2 class="h5 mb-2">{{ card.value }}</h2>
+                <p class="mb-0 text-body-secondary">{{ card.hint }}</p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="col-12 col-xl-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <p class="text-body-secondary small text-uppercase mb-2">What happens here</p>
+          <ol class="mb-0 ps-3">
+            @for (step of page.steps; track step) {
+              <li class="mb-2">{{ step }}</li>
+            }
+          </ol>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <p class="text-body-secondary small text-uppercase mb-2">Next screens</p>
+          <div class="vstack gap-2">
+            @for (link of page.links; track link.link) {
+              <a class="btn btn-outline-primary text-start" [routerLink]="link.link">
+                {{ link.label }}
+              </a>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
