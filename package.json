@@ -1,0 +1,12 @@
+{
+  "name": "family-health-coach-ai",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "test:foundation": "python3 tests/foundation/test_foundation_scaffold.py",
+    "test": "python3 tests/foundation/test_foundation_scaffold.py"
+  },
+  "workspaces": [
+    "apps/web"
+  ]
+}

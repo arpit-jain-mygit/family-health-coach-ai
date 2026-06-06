@@ -34,7 +34,7 @@ Current status as of 2026-06-06:
 
 | Module | Phase | Status | Certification | Current Notes |
 |---|---|---|---|---|
-| 1. Foundation | Phase 1 | Planned | Not certified | Angular + Bootstrap frontend and FastAPI backend are selected. |
+| 1. Foundation | Phase 1 | In Progress | Not certified | Test cases defined; foundation scaffold implementation started. |
 | 2. Authentication | Phase 1 | Planned | Not certified | Google OAuth only, with FastAPI JWT session tokens. |
 | 3. Family Management | Phase 1 | Planned | Not certified | Family is the tenant boundary. |
 | 4. Member Management | Phase 1 | Planned | Not certified | Supports profile, health info, goals, and preferences. |
@@ -78,7 +78,7 @@ Certification requires:
 
 | Module | Status | Test Command | Result | Certified On | Commit |
 |---|---|---|---|---|---|
-| 1. Foundation | Not certified | TBD before module start | Not run | - | - |
+| 1. Foundation | Not certified | `python3 tests/foundation/test_foundation_scaffold.py` | Not run | - | - |
 | 2. Authentication | Not certified | TBD before module start | Not run | - | - |
 | 3. Family Management | Not certified | TBD before module start | Not run | - | - |
 | 4. Member Management | Not certified | TBD before module start | Not run | - | - |
@@ -176,11 +176,11 @@ Set up the technical base for frontend, backend, database, shared types, environ
 
 ### Tests
 
-- API health check test.
-- Angular smoke render test.
-- Angular route guard test.
-- Angular API service test.
-- Database connection test.
+- Foundation scaffold verification: `python3 tests/foundation/test_foundation_scaffold.py`.
+- API health check structure test: verify `GET /api/v1/health` route exists in the FastAPI app.
+- Angular scaffold structure test: verify Angular app config, package metadata, Bootstrap dependency, environment files, and app shell files exist.
+- Local development config test: verify Docker Compose includes PostgreSQL, Redis, and local S3-compatible storage.
+- Database foundation test: verify SQLAlchemy/SQLModel and Alembic config files exist.
 
 ### Dependencies
 

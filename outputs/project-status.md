@@ -26,7 +26,7 @@ Last updated: 2026-06-06
 |---|---|---|
 | Product blueprint | Done | Architecture, data model, API contracts, UI wireframes, and implementation phases are documented. |
 | Module-wise plan | Done | Modules, tasks, dependencies, tests, and status tracker are documented. |
-| Code implementation | Planned | No application code has been scaffolded yet; build locally first. |
+| Code implementation | In Progress | Module 1 Foundation scaffold is being implemented locally first. |
 | GitHub sync | Done | Repository is connected and pushed to GitHub. |
 | Deployment | Deferred | Develop locally now; migrate to Vercel/Render or similar after the MVP is stable. |
 
@@ -34,7 +34,7 @@ Last updated: 2026-06-06
 
 | Module | Phase | Status | Certification | Current Notes |
 |---|---|---|---|---|
-| 1. Foundation | Phase 1 | Planned | Not certified | Angular + Bootstrap frontend and FastAPI backend are selected. |
+| 1. Foundation | Phase 1 | In Progress | Not certified | Test cases defined; foundation scaffold implementation started. |
 | 2. Authentication | Phase 1 | Planned | Not certified | Google OAuth only, with FastAPI JWT session tokens. |
 | 3. Family Management | Phase 1 | Planned | Not certified | Family is the tenant boundary. |
 | 4. Member Management | Phase 1 | Planned | Not certified | Supports profile, health info, goals, and preferences. |
