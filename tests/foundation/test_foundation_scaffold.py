@@ -92,6 +92,7 @@ def test_angular_core_structure_exists() -> None:
     assert "authGuard" in read("apps/web/src/app/core/guards/auth.guard.ts")
     assert "authInterceptor" in read("apps/web/src/app/core/interceptors/auth.interceptor.ts")
     assert "apiBaseUrl" in read("apps/web/src/environments/environment.ts")
+    assert "http://127.0.0.1:8000" in read("apps/web/src/environments/environment.ts")
 
 
 def test_local_development_configuration() -> None:
