@@ -43,12 +43,13 @@ Set up the technical base for frontend, backend, database, shared types, environ
 
 ### Backend Tasks
 
-- Create NestJS API app.
-- Add Prisma.
+- Create FastAPI app.
+- Add SQLAlchemy or SQLModel.
 - Configure PostgreSQL.
-- Add shared config module.
-- Add request validation with Zod or class-validator.
-- Add global exception filter.
+- Add Alembic migrations.
+- Add shared settings/config module.
+- Add request and response validation with Pydantic.
+- Add global exception handlers.
 - Add structured logging.
 - Add health check endpoint.
 
@@ -73,9 +74,9 @@ Set up the technical base for frontend, backend, database, shared types, environ
 
 ### Database Tasks
 
-- Create initial Prisma schema.
+- Create initial SQLAlchemy/SQLModel models.
 - Add base models: `User`, `Family`, `FamilyMembership`, `FamilyMember`.
-- Add migrations.
+- Add Alembic migrations.
 
 ### APIs
 
@@ -87,7 +88,7 @@ Set up the technical base for frontend, backend, database, shared types, environ
 - Angular smoke render test.
 - Angular route guard test.
 - Angular API service test.
-- Prisma connection test.
+- Database connection test.
 
 ### Dependencies
 
@@ -101,11 +102,11 @@ Allow users to sign in and out with Google authentication.
 
 ### Backend Tasks
 
-- Configure NestJS Auth with Passport.js.
+- Configure FastAPI Google OAuth flow.
 - Add Google OAuth.
 - Add JWT/session handling.
-- Add auth guards.
-- Add current-user decorator.
+- Add auth dependencies.
+- Add current-user dependency.
 
 ### Frontend Tasks
 
@@ -120,7 +121,7 @@ Allow users to sign in and out with Google authentication.
 ### Database Tasks
 
 - Finalize `User`.
-- Add Google OAuth identity fields and refresh-token or session tables if required by the JWT/Passport implementation.
+- Add Google OAuth identity fields and refresh-token or session tables if required by the FastAPI auth implementation.
 
 ### APIs
 
@@ -149,8 +150,8 @@ Allow authenticated users to create and manage families.
 ### Backend Tasks
 
 - Create family service.
-- Create family controller.
-- Add family tenant guard.
+- Create family router.
+- Add family tenant dependency.
 - Add family membership service.
 - Assign creator as `FAMILY_ADMIN`.
 
@@ -740,8 +741,8 @@ Protect sensitive health data and maintain traceability.
 
 ### Backend Tasks
 
-- Add tenant guards everywhere.
-- Add role guards.
+- Add tenant dependencies everywhere.
+- Add role/permission dependencies.
 - Add audit logging.
 - Add rate limiting.
 - Add request size limits.
@@ -789,7 +790,7 @@ Ensure reliable delivery through automated checks.
 - Add E2E tests.
 - Add linting.
 - Add type checking.
-- Add Prisma migration check.
+- Add Alembic migration check.
 - Add GitHub Actions CI.
 - Add deployment pipeline.
 
@@ -822,10 +823,10 @@ Ensure reliable delivery through automated checks.
 
 ### Backend Developer
 
-- NestJS modules
-- Prisma schema
+- FastAPI routers and services
+- SQLAlchemy/SQLModel models
 - Auth integration
-- Tenant guards
+- Tenant dependencies
 - APIs
 - Workers
 - PDF generation

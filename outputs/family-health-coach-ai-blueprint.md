@@ -48,14 +48,14 @@ Can:
 ### Stack
 
 - Frontend: Angular, TypeScript, Bootstrap CSS, Angular PWA
-- Backend: NestJS, TypeScript
+- Backend: FastAPI, Python
 - Database: PostgreSQL
-- ORM: Prisma
-- Auth: NestJS Auth with Passport.js, JWT, and Google OAuth only
+- ORM: SQLAlchemy or SQLModel with Alembic migrations
+- Auth: FastAPI Google OAuth with JWT session tokens
 - Storage: AWS S3-compatible object storage
 - AI providers: OpenAI, Gemini, Anthropic
 - Vector/RAG: PostgreSQL with `pgvector` for phase 1-2, optional dedicated vector DB later
-- Queue: BullMQ + Redis for report generation, reminders, photo parsing, long-running AI jobs
+- Queue: Celery or RQ with Redis for report generation, reminders, photo parsing, and long-running AI jobs
 - PDF: Playwright or server-side PDF renderer
 - Observability: OpenTelemetry, structured logs, audit logs
 - CI/CD: GitHub Actions
@@ -69,7 +69,7 @@ Can:
 - Routing: Angular Router with lazy-loaded feature routes
 - Forms: Angular Reactive Forms with shared validators
 - API access: Angular `HttpClient` services with auth and error interceptors
-- Auth protection: Angular route guards backed by NestJS JWT/Passport auth
+- Auth protection: Angular route guards backed by FastAPI JWT auth
 - State: Angular services and signals for MVP; NgRx can be added later if state complexity grows
 - PWA: Angular service worker, app manifest, offline shell, and push notification support
 - Icons: Bootstrap Icons or another Angular-compatible icon package
@@ -80,12 +80,12 @@ Can:
 ```mermaid
 flowchart LR
   user["Family users"] --> web["Angular Web App / PWA"]
-  web --> auth["NestJS Auth / JWT"]
-  web --> api["NestJS API"]
-  api --> db["PostgreSQL + Prisma"]
+  web --> auth["FastAPI Auth / JWT"]
+  web --> api["FastAPI API"]
+  api --> db["PostgreSQL + SQLAlchemy"]
   api --> vector["pgvector Memory Store"]
   api --> s3["AWS S3 Storage"]
-  api --> queue["Redis + BullMQ"]
+  api --> queue["Redis + Celery/RQ"]
   queue --> workers["Background Workers"]
   workers --> db
   workers --> s3
@@ -95,26 +95,26 @@ flowchart LR
   ai --> anthropic["Anthropic"]
 ```
 
-### Backend Module Architecture
+### Backend App Architecture
 
 ```mermaid
 flowchart TB
-  api["NestJS API"]
-  api --> auth["Auth Module"]
-  api --> families["Families Module"]
-  api --> members["Members Module"]
-  api --> health["Health Metrics Module"]
-  api --> food["Food Logs Module"]
-  api --> plans["Meal Plans Module"]
-  api --> chat["Chat Module"]
-  api --> reports["Reports Module"]
-  api --> reminders["Reminders Module"]
-  api --> leaderboard["Leaderboard Module"]
-  api --> audit["Audit Module"]
-  chat --> llm["LLM Module"]
+  api["FastAPI App"]
+  api --> auth["Auth Router"]
+  api --> families["Families Router"]
+  api --> members["Members Router"]
+  api --> health["Health Metrics Router"]
+  api --> food["Food Logs Router"]
+  api --> plans["Meal Plans Router"]
+  api --> chat["Chat Router"]
+  api --> reports["Reports Router"]
+  api --> reminders["Reminders Router"]
+  api --> leaderboard["Leaderboard Router"]
+  api --> audit["Audit Router"]
+  chat --> llm["LLM Service"]
   reports --> llm
   food --> llm
-  llm --> memory["Memory / RAG Module"]
+  llm --> memory["Memory / RAG Service"]
 ```
 
 ## 4. Multi-Tenancy Model
@@ -129,416 +129,142 @@ Rules:
 - A family admin can access all members in their family.
 - A family member can only access their own profile, logs, chat, and reports.
 - All backend queries must be scoped by `familyId`.
-- Use service-layer tenant guards and Prisma middleware/query helpers.
+- Use FastAPI dependencies and service-layer query helpers to enforce tenant scoping.
 - Keep audit logs for access to health data, report downloads, and admin changes.
 
 ## 5. Database Schema
 
-### Prisma Schema Draft
+### Relational Schema Draft
 
-```prisma
-enum FamilyRole {
-  FAMILY_ADMIN
-  FAMILY_MEMBER
-}
+Use SQLAlchemy or SQLModel models with Alembic migrations. Keep the schema simple and table-oriented for the MVP.
 
-enum Gender {
-  MALE
-  FEMALE
-  OTHER
-  PREFER_NOT_TO_SAY
-}
+Core enums:
 
-enum ActivityLevel {
-  SEDENTARY
-  LIGHT
-  MODERATE
-  ACTIVE
-  VERY_ACTIVE
-}
+```python
+class FamilyRole(str, Enum):
+    FAMILY_ADMIN = "FAMILY_ADMIN"
+    FAMILY_MEMBER = "FAMILY_MEMBER"
 
-enum FoodPreference {
-  VEGETARIAN
-  JAIN
-  VEGAN
-}
+class Gender(str, Enum):
+    MALE = "MALE"
+    FEMALE = "FEMALE"
+    OTHER = "OTHER"
+    PREFER_NOT_TO_SAY = "PREFER_NOT_TO_SAY"
 
-enum LLMProviderName {
-  OPENAI
-  GEMINI
-  ANTHROPIC
-}
+class ActivityLevel(str, Enum):
+    SEDENTARY = "SEDENTARY"
+    LIGHT = "LIGHT"
+    MODERATE = "MODERATE"
+    ACTIVE = "ACTIVE"
+    VERY_ACTIVE = "VERY_ACTIVE"
 
-enum ChatRole {
-  USER
-  ASSISTANT
-  SYSTEM
-  TOOL
-}
+class FoodPreference(str, Enum):
+    VEGETARIAN = "VEGETARIAN"
+    JAIN = "JAIN"
+    VEGAN = "VEGAN"
 
-enum ReportType {
-  DAILY
-  WEEKLY
-  MONTHLY
-  FAMILY
-}
-
-model User {
-  id            String             @id @default(cuid())
-  email         String             @unique
-  googleId      String?            @unique
-  name          String?
-  imageUrl      String?
-  memberships   FamilyMembership[]
-  createdAt     DateTime           @default(now())
-  updatedAt     DateTime           @updatedAt
-}
-
-model Family {
-  id             String             @id @default(cuid())
-  name           String
-  goals          Json?
-  preferences    Json?
-  memberships    FamilyMembership[]
-  members        FamilyMember[]
-  memories       FamilyMemory[]
-  auditLogs      AuditLog[]
-  createdAt      DateTime           @default(now())
-  updatedAt      DateTime           @updatedAt
-}
-
-model FamilyMembership {
-  id        String     @id @default(cuid())
-  familyId  String
-  userId    String
-  role      FamilyRole
-  family    Family     @relation(fields: [familyId], references: [id], onDelete: Cascade)
-  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime   @default(now())
-
-  @@unique([familyId, userId])
-  @@index([userId])
-}
-
-model FamilyMember {
-  id                    String             @id @default(cuid())
-  familyId              String
-  userId                String?
-  name                  String
-  age                   Int?
-  gender                Gender?
-  heightCm              Decimal?           @db.Decimal(6, 2)
-  weightKg              Decimal?           @db.Decimal(6, 2)
-  waistCm               Decimal?           @db.Decimal(6, 2)
-  activityLevel         ActivityLevel?
-  medicalConditions     String[]
-  medications           String[]
-  allergies             String[]
-  foodPreferences       FoodPreference[]
-  mealTimingPreferences Json?
-  exercisePreferences   Json?
-  family                Family             @relation(fields: [familyId], references: [id], onDelete: Cascade)
-  user                  User?              @relation(fields: [userId], references: [id])
-  healthMetrics         MemberHealthMetric[]
-  goals                 MemberGoal[]
-  foodLogs              FoodLog[]
-  mealPlans             MealPlan[]
-  dailyReports          DailyReport[]
-  weeklyReports         WeeklyReport[]
-  monthlyReports        MonthlyReport[]
-  chatSessions          ConversationSession[]
-  memories              MemberMemory[]
-  createdAt             DateTime           @default(now())
-  updatedAt             DateTime           @updatedAt
-
-  @@index([familyId])
-  @@index([userId])
-}
-
-model MemberHealthMetric {
-  id              String    @id @default(cuid())
-  familyId        String
-  memberId        String
-  measuredAt      DateTime
-  weightKg        Decimal?  @db.Decimal(6, 2)
-  waistCm         Decimal?  @db.Decimal(6, 2)
-  hba1c           Decimal?  @db.Decimal(5, 2)
-  ldl             Decimal?  @db.Decimal(6, 2)
-  hdl             Decimal?  @db.Decimal(6, 2)
-  triglycerides   Decimal?  @db.Decimal(6, 2)
-  vitaminD        Decimal?  @db.Decimal(6, 2)
-  hemoglobin      Decimal?  @db.Decimal(5, 2)
-  energyScore     Int?
-  staminaScore    Int?
-  notes           String?
-  member          FamilyMember @relation(fields: [memberId], references: [id], onDelete: Cascade)
-
-  @@index([familyId, memberId, measuredAt])
-}
-
-model MemberGoal {
-  id              String   @id @default(cuid())
-  familyId        String
-  memberId        String
-  type            String
-  targetValue     Decimal? @db.Decimal(8, 2)
-  targetUnit      String?
-  targetDate      DateTime?
-  status          String   @default("ACTIVE")
-  member          FamilyMember @relation(fields: [memberId], references: [id], onDelete: Cascade)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  @@index([familyId, memberId])
-}
-
-model FoodLog {
-  id                    String   @id @default(cuid())
-  familyId              String
-  memberId              String
-  loggedAt              DateTime
-  source                String
-  rawText               String?
-  photoUrl              String?
-  audioUrl              String?
-  items                 Json
-  estimatedCalories     Int?
-  estimatedProteinG     Decimal? @db.Decimal(6, 2)
-  estimatedCarbsG       Decimal? @db.Decimal(6, 2)
-  estimatedFatG         Decimal? @db.Decimal(6, 2)
-  adherenceScore        Int?
-  coachFeedback         String?
-  member                FamilyMember @relation(fields: [memberId], references: [id], onDelete: Cascade)
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
-
-  @@index([familyId, memberId, loggedAt])
-}
-
-model MealPlan {
-  id                String   @id @default(cuid())
-  familyId          String
-  memberId          String
-  planDate          DateTime
-  provider          LLMProviderName
-  plan              Json
-  caloriesTarget    Int?
-  proteinTargetG    Decimal? @db.Decimal(6, 2)
-  rationale         String?
-  member            FamilyMember @relation(fields: [memberId], references: [id], onDelete: Cascade)
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-
-  @@index([familyId, memberId, planDate])
-}
-
-model ConversationSession {
-  id          String        @id @default(cuid())
-  familyId    String
-  memberId    String
-  title       String?
-  messages    ChatMessage[]
-  member      FamilyMember  @relation(fields: [memberId], references: [id], onDelete: Cascade)
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-
-  @@index([familyId, memberId])
-}
-
-model ChatMessage {
-  id              String   @id @default(cuid())
-  familyId        String
-  sessionId       String
-  role            ChatRole
-  content         String
-  structuredData  Json?
-  provider        LLMProviderName?
-  tokenUsage      Json?
-  session         ConversationSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
-  createdAt       DateTime @default(now())
-
-  @@index([familyId, sessionId, createdAt])
-}
-
-model DailyReport {
-  id              String   @id @default(cuid())
-  familyId        String
-  memberId        String
-  reportDate      DateTime
-  summary         Json
-  calories        Int?
-  proteinG        Decimal? @db.Decimal(6, 2)
-  waterMl         Int?
-  steps           Int?
-  exerciseMinutes Int?
-  adherenceScore  Int?
-  member          FamilyMember @relation(fields: [memberId], references: [id], onDelete: Cascade)
-
-  @@unique([memberId, reportDate])
-  @@index([familyId, reportDate])
-}
-
-model WeeklyReport {
-  id             String   @id @default(cuid())
-  familyId       String
-  memberId       String
-  weekStartDate  DateTime
-  summary        Json
-  member         FamilyMember @relation(fields: [memberId], references: [id], onDelete: Cascade)
-
-  @@unique([memberId, weekStartDate])
-  @@index([familyId, weekStartDate])
-}
-
-model MonthlyReport {
-  id              String   @id @default(cuid())
-  familyId        String
-  memberId        String
-  monthStartDate  DateTime
-  summary         Json
-  member          FamilyMember @relation(fields: [memberId], references: [id], onDelete: Cascade)
-
-  @@unique([memberId, monthStartDate])
-  @@index([familyId, monthStartDate])
-}
-
-model PdfReport {
-  id           String     @id @default(cuid())
-  familyId     String
-  memberId     String?
-  reportType   ReportType
-  reportId     String
-  fileUrl      String
-  generatedBy  String
-  createdAt    DateTime   @default(now())
-
-  @@index([familyId, memberId, createdAt])
-}
-
-model FamilyMemory {
-  id          String   @id @default(cuid())
-  familyId    String
-  content     String
-  metadata    Json?
-  embedding   Unsupported("vector")?
-  family      Family   @relation(fields: [familyId], references: [id], onDelete: Cascade)
-  createdAt   DateTime @default(now())
-
-  @@index([familyId])
-}
-
-model MemberMemory {
-  id          String   @id @default(cuid())
-  familyId    String
-  memberId    String
-  content     String
-  metadata    Json?
-  embedding   Unsupported("vector")?
-  member      FamilyMember @relation(fields: [memberId], references: [id], onDelete: Cascade)
-  createdAt   DateTime @default(now())
-
-  @@index([familyId, memberId])
-}
-
-model Reminder {
-  id          String   @id @default(cuid())
-  familyId    String
-  memberId    String
-  type        String
-  schedule    Json
-  channel     String
-  enabled     Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([familyId, memberId])
-}
-
-model AuditLog {
-  id          String   @id @default(cuid())
-  familyId    String
-  actorUserId String?
-  action      String
-  resource    String
-  resourceId  String?
-  metadata    Json?
-  ipAddress   String?
-  userAgent   String?
-  family      Family   @relation(fields: [familyId], references: [id], onDelete: Cascade)
-  createdAt   DateTime @default(now())
-
-  @@index([familyId, createdAt])
-}
+class LLMProviderName(str, Enum):
+    OPENAI = "OPENAI"
+    GEMINI = "GEMINI"
+    ANTHROPIC = "ANTHROPIC"
 ```
+
+Recommended tables:
+
+| Table | Purpose | Important Fields |
+|---|---|---|
+| `users` | Google-authenticated users | `id`, `email`, `google_id`, `name`, `image_url`, `created_at`, `updated_at` |
+| `families` | Tenant boundary | `id`, `name`, `goals`, `preferences`, `created_at`, `updated_at` |
+| `family_memberships` | User-to-family roles | `id`, `family_id`, `user_id`, `role`, `created_at` |
+| `family_members` | Health profile for each person | `id`, `family_id`, `user_id`, `name`, `age`, `gender`, `height_cm`, `weight_kg`, `waist_cm`, `activity_level`, `medical_conditions`, `medications`, `allergies`, `food_preferences`, `meal_timing_preferences`, `exercise_preferences` |
+| `member_health_metrics` | Time-series health markers | `id`, `family_id`, `member_id`, `measured_at`, `weight_kg`, `waist_cm`, `hba1c`, `ldl`, `hdl`, `triglycerides`, `vitamin_d`, `hemoglobin`, `energy_score`, `stamina_score`, `notes` |
+| `member_goals` | Member goals | `id`, `family_id`, `member_id`, `type`, `target_value`, `target_unit`, `target_date`, `status` |
+| `food_logs` | Structured food logs | `id`, `family_id`, `member_id`, `logged_at`, `source`, `raw_text`, `photo_url`, `audio_url`, `items`, `estimated_calories`, `estimated_protein_g`, `estimated_carbs_g`, `estimated_fat_g`, `adherence_score`, `coach_feedback` |
+| `meal_plans` | AI-generated plans | `id`, `family_id`, `member_id`, `plan_date`, `provider`, `plan`, `calories_target`, `protein_target_g`, `rationale` |
+| `conversation_sessions` | Chat sessions | `id`, `family_id`, `member_id`, `title`, `created_at`, `updated_at` |
+| `chat_messages` | Chat history | `id`, `family_id`, `session_id`, `role`, `content`, `structured_data`, `provider`, `token_usage`, `created_at` |
+| `daily_reports` | Daily summaries | `id`, `family_id`, `member_id`, `report_date`, `summary`, `calories`, `protein_g`, `water_ml`, `steps`, `exercise_minutes`, `adherence_score` |
+| `weekly_reports` | Weekly summaries | `id`, `family_id`, `member_id`, `week_start_date`, `summary` |
+| `monthly_reports` | Monthly summaries | `id`, `family_id`, `member_id`, `month_start_date`, `summary` |
+| `pdf_reports` | Generated PDFs | `id`, `family_id`, `member_id`, `report_type`, `report_id`, `file_url`, `generated_by`, `created_at` |
+| `family_memories` | Family-level memory | `id`, `family_id`, `content`, `metadata`, `embedding`, `created_at` |
+| `member_memories` | Member-level memory | `id`, `family_id`, `member_id`, `content`, `metadata`, `embedding`, `created_at` |
+| `reminders` | Reminder settings | `id`, `family_id`, `member_id`, `type`, `schedule`, `channel`, `enabled`, `created_at`, `updated_at` |
+| `audit_logs` | Security/audit trail | `id`, `family_id`, `actor_user_id`, `action`, `resource`, `resource_id`, `metadata`, `ip_address`, `user_agent`, `created_at` |
+
+FastAPI model guidance:
+
+- Use Pydantic models for request and response DTOs.
+- Use SQLAlchemy or SQLModel for database models.
+- Use Alembic for migrations.
+- Store flexible health, meal, memory, and report details in PostgreSQL `JSONB` columns.
+- Add `family_id` to every tenant-scoped table.
+- Add indexes on `family_id`, `member_id`, and date fields used in dashboards and reports.
+- Use `pgvector` columns for memory embeddings once RAG is enabled.
 
 ## 6. AI Provider Abstraction
 
-### TypeScript Interface
+### Python Interface
 
-```ts
-export interface LLMProvider {
-  generateMealPlan(input: GenerateMealPlanInput): Promise<MealPlanResult>;
-  reviewMeal(input: ReviewMealInput): Promise<MealReviewResult>;
-  generateReport(input: GenerateReportInput): Promise<ReportResult>;
-  chat(input: ChatInput): Promise<ChatResult>;
-}
+Use a small provider abstraction so the FastAPI services can call OpenAI, Gemini, or Anthropic without changing business logic.
 
-export type LLMProviderName = "openai" | "gemini" | "anthropic";
+```python
+from typing import Protocol
+from pydantic import BaseModel
 
-export interface ChatInput {
-  familyId: string;
-  memberId: string;
-  sessionId: string;
-  message: string;
-  memoryContext: MemoryContext;
-  recentMessages: ChatMessageDto[];
-}
+class ChatInput(BaseModel):
+    family_id: str
+    member_id: str
+    session_id: str
+    message: str
+    memory_context: dict
+    recent_messages: list[dict]
 
-export interface ReviewMealInput {
-  familyId: string;
-  memberId: string;
-  rawEntry: string;
-  memberProfile: MemberProfileSnapshot;
-  goals: GoalSnapshot[];
-  memoryContext: MemoryContext;
-}
+class MealReviewInput(BaseModel):
+    family_id: str
+    member_id: str
+    raw_entry: str
+    member_profile: dict
+    goals: list[dict]
+    memory_context: dict
 
-export interface MealReviewResult {
-  normalizedItems: Array<{
-    name: string;
-    quantity: string;
-    calories: number;
-    proteinG: number;
-    confidence: number;
-  }>;
-  totalCalories: number;
-  totalProteinG: number;
-  adherenceScore: number;
-  feedback: string;
-  safetyNotes?: string[];
-  memoryUpdates?: string[];
-}
+class MealReviewResult(BaseModel):
+    normalized_items: list[dict]
+    total_calories: int
+    total_protein_g: float
+    adherence_score: int
+    feedback: str
+    safety_notes: list[str] = []
+    memory_updates: list[str] = []
+
+class LLMProvider(Protocol):
+    async def generate_meal_plan(self, input: dict) -> dict: ...
+    async def review_meal(self, input: MealReviewInput) -> MealReviewResult: ...
+    async def generate_report(self, input: dict) -> dict: ...
+    async def chat(self, input: ChatInput) -> dict: ...
 ```
 
 ### Provider Classes
 
-```ts
-export class OpenAIProvider implements LLMProvider {}
-export class GeminiProvider implements LLMProvider {}
-export class AnthropicProvider implements LLMProvider {}
+```python
+class OpenAIProvider:
+    pass
 
-export class LLMProviderFactory {
-  getProvider(name: LLMProviderName): LLMProvider {
-    switch (name) {
-      case "openai":
-        return new OpenAIProvider();
-      case "gemini":
-        return new GeminiProvider();
-      case "anthropic":
-        return new AnthropicProvider();
-    }
-  }
-}
+class GeminiProvider:
+    pass
+
+class AnthropicProvider:
+    pass
+
+class LLMProviderFactory:
+    def get_provider(self, name: str) -> LLMProvider:
+        if name == "openai":
+            return OpenAIProvider()
+        if name == "gemini":
+            return GeminiProvider()
+        if name == "anthropic":
+            return AnthropicProvider()
+        raise ValueError(f"Unsupported LLM provider: {name}")
 ```
 
 ## 7. Memory System
@@ -966,43 +692,53 @@ family-health-coach-ai/
       angular.json
       package.json
     api/
-      src/
-        main.ts
-        app.module.ts
-        auth/
-        families/
-        members/
-        health-metrics/
-        food-logs/
-        meal-plans/
-        chat/
-        reports/
-        reminders/
-        leaderboard/
+      app/
+        main.py
+        core/
+          config.py
+          security.py
+          logging.py
+        db/
+          session.py
+          base.py
+        models/
+        schemas/
+        api/
+          deps.py
+          v1/
+            auth.py
+            families.py
+            members.py
+            health_metrics.py
+            food_logs.py
+            meal_plans.py
+            chat.py
+            reports.py
+            reminders.py
+            leaderboard.py
+        services/
+          auth_service.py
+          family_service.py
+          member_service.py
+          food_log_service.py
+          meal_plan_service.py
+          chat_service.py
+          report_service.py
+          memory_service.py
+          audit_service.py
         llm/
-          llm-provider.interface.ts
-          llm-provider.factory.ts
-          providers/
-            openai.provider.ts
-            gemini.provider.ts
-            anthropic.provider.ts
-        memory/
+          provider.py
+          factory.py
+          openai_provider.py
+          gemini_provider.py
+          anthropic_provider.py
+        workers/
         storage/
-        audit/
-        common/
-          guards/
-          decorators/
-          filters/
-          interceptors/
+      alembic/
+        versions/
       test/
-      package.json
+      pyproject.toml
   packages/
-    database/
-      prisma/
-        schema.prisma
-        migrations/
-      src/
-        prisma.ts
     shared/
       src/
         types/
@@ -1067,7 +803,7 @@ HIPAA-inspired practices:
 - Add consent language for AI-generated guidance.
 - Add disclaimer: not medical advice; consult clinicians for diagnosis/treatment.
 - Rate-limit auth, chat, uploads, and report generation.
-- Validate all AI JSON outputs with Zod.
+- Validate all AI JSON outputs with Pydantic models.
 - Use row-level security in PostgreSQL if operational maturity allows it.
 
 ## 13. Testing Strategy
@@ -1077,7 +813,7 @@ HIPAA-inspired practices:
 - LLM provider factory
 - Prompt builders
 - JSON output validators
-- Permission guards
+- Permission dependencies
 - Dashboard aggregate calculations
 - Leaderboard scoring
 - Report summary calculations
@@ -1093,7 +829,7 @@ HIPAA-inspired practices:
 
 ### E2E Tests
 
-- Register -> create family -> add member -> chat meal log -> dashboard updates
+- Google sign-in -> create family -> add member -> chat meal log -> dashboard updates
 - Admin downloads weekly report
 - Mobile chat and meal logging flow
 
@@ -1120,16 +856,22 @@ jobs:
           POSTGRES_PASSWORD: postgres
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: pnpm/action-setup@v4
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm typecheck
-      - run: pnpm test
-      - run: pnpm prisma migrate deploy
+      - run: pnpm test --filter web
+      - run: pip install -e "apps/api[dev]"
+      - run: alembic upgrade head
+        working-directory: apps/api
+      - run: pytest
+        working-directory: apps/api
       - run: pnpm test:e2e
 ```
 
@@ -1152,9 +894,9 @@ Deliverables:
 
 - Monorepo scaffold
 - Angular app with Bootstrap CSS, responsive layout, Angular PWA, and dark mode
-- NestJS API
-- PostgreSQL + Prisma setup
-- NestJS Passport/JWT Google OAuth login
+- FastAPI app
+- PostgreSQL + SQLAlchemy/SQLModel + Alembic setup
+- FastAPI Google OAuth + JWT login
 - Family creation
 - Admin/member roles
 - Member CRUD
@@ -1162,7 +904,7 @@ Deliverables:
 - LLM provider abstraction
 - OpenAI provider first
 - Basic memory storage without embeddings
-- Tenant guards and audit logs
+- Tenant dependencies and audit logs
 
 Acceptance criteria:
 
@@ -1244,8 +986,8 @@ Acceptance criteria:
 ## 16. MVP Build Order
 
 1. Scaffold monorepo and base infrastructure.
-2. Add Prisma schema and migrations.
-3. Implement NestJS JWT/Passport Google OAuth and session handling.
+2. Add SQLAlchemy/SQLModel models and Alembic migrations.
+3. Implement FastAPI Google OAuth and JWT session handling.
 4. Build family and member APIs.
 5. Build dashboard shell and family/member screens.
 6. Implement LLM abstraction and OpenAI chat.
@@ -1256,7 +998,7 @@ Acceptance criteria:
 
 ## 17. Key Product Decisions
 
-- Start with Angular and NestJS for a full TypeScript stack.
+- Start with Angular for the UI and FastAPI for a simple Python API layer.
 - Use PostgreSQL and `pgvector` before adding a separate vector database.
 - Use family-level tenancy as the primary isolation boundary.
 - Keep AI output structured and validated.
