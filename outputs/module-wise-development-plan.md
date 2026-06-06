@@ -182,6 +182,39 @@ Set up the technical base for frontend, backend, database, shared types, environ
 - Local development config test: verify Docker Compose includes PostgreSQL, Redis, and local S3-compatible storage.
 - Database foundation test: verify SQLAlchemy/SQLModel and Alembic config files exist.
 
+### How To Test Module 1
+
+Run from the repository root:
+
+```bash
+python3 tests/foundation/test_foundation_scaffold.py
+```
+
+Expected output:
+
+```text
+Module 1 foundation scaffold checks passed.
+```
+
+This test verifies:
+
+- FastAPI foundation files exist.
+- The `/api/v1/health` route is declared.
+- SQLAlchemy base/session and initial models exist.
+- Alembic config exists.
+- Angular foundation files exist.
+- Bootstrap is declared in the Angular app dependencies.
+- Angular routing, guard, interceptor, API service, login shell, dashboard shell, and environment config exist.
+- Docker Compose includes PostgreSQL, Redis, and MinIO for local development.
+- `.env.example` includes local development keys.
+
+If the test fails:
+
+- Read the missing file or missing text assertion in the terminal output.
+- Restore or create the expected scaffold file.
+- Rerun the same command until it passes.
+- Do not mark Module 1 `Certified` unless this command passes.
+
 ### Dependencies
 
 - None. This is the first module.
