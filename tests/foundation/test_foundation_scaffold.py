@@ -69,6 +69,7 @@ def test_angular_foundation_files() -> None:
         "apps/web/src/styles/styles.scss",
         "apps/web/src/environments/environment.ts",
         "apps/web/src/manifest.webmanifest",
+        "apps/web/vercel.json",
     ]:
         assert_file(path)
 
