@@ -104,7 +104,7 @@ Certification requires:
 - Before starting any module, confirm that module's test cases are documented.
 - After finishing any module, run the documented tests and update the certification log.
 - Before every commit, run a stale-stack scan and fix any outdated references:
-  `rg -n "N[e]xt\\.js|N[e]xtJS|n[e]xt\\.js|n[e]xtjs|T[a]ilwind|t[a]ilwind|s[h]adcn|A[u]th\\.js|N[e]stJS|P[r]isma|s[c]hema\\.prisma|R[e]act PDF|B[u]llMQ" .`
+  `rg -n "N[e]xt\\.js|N[e]xtJS|n[e]xt\\.js|n[e]xtjs|T[a]ilwind|t[a]ilwind|s[h]adcn|A[u]th\\.js|N[e]stJS|P[r]isma|s[c]hema\\.prisma|R[e]act PDF|B[u]llMQ" . -g "!package-lock.json" -g "!node_modules/**"`
 - If the scan returns anything, update all affected docs before committing.
 - Every documentation update should be committed and pushed after verification.
 

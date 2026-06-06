@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,7 +8,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './family-settings.component.scss'
 })
 export class FamilySettingsComponent {
+  private readonly route = inject(ActivatedRoute);
   readonly familyId = this.route.snapshot.paramMap.get('familyId');
-
-  constructor(private readonly route: ActivatedRoute) {}
 }

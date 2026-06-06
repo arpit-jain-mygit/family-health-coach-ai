@@ -26,7 +26,7 @@ These docs must stay in sync. When stack, scope, APIs, database design, module s
 Before every commit, run this stale-stack scan and fix any outdated references:
 
 ```bash
-rg -n "N[e]xt\\.js|N[e]xtJS|n[e]xt\\.js|n[e]xtjs|T[a]ilwind|t[a]ilwind|s[h]adcn|A[u]th\\.js|N[e]stJS|P[r]isma|s[c]hema\\.prisma|R[e]act PDF|B[u]llMQ" .
+rg -n "N[e]xt\\.js|N[e]xtJS|n[e]xt\\.js|n[e]xtjs|T[a]ilwind|t[a]ilwind|s[h]adcn|A[u]th\\.js|N[e]stJS|P[r]isma|s[c]hema\\.prisma|R[e]act PDF|B[u]llMQ" . -g "!package-lock.json" -g "!node_modules/**"
 ```
 
 ## 2. Target Users
